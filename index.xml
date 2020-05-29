@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>My Blog</title><link>https://immatt2015.github.io/</link><description>Recent content on My Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© 2019. Theme by &lt;a href="https://github.com/MeiK2333/github-style">&lt;span>github-style&lt;/span>&lt;/a></copyright><lastBuildDate>Thu, 28 May 2020 22:42:11 +0700</lastBuildDate><atom:link href="https://immatt2015.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>OpenVPN 部署以及在 openwrt 上搭透明代理</title><link>https://immatt2015.github.io/blogs/tunnel/openvpn/</link><pubDate>Thu, 28 May 2020 22:42:11 +0700</pubDate><guid>https://immatt2015.github.io/blogs/tunnel/openvpn/</guid><description>本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
-vps 系统类型： Centos7</description></item><item><title>Openresty GeoIp 使用</title><link>https://immatt2015.github.io/blogs/nginx/geoip/</link><pubDate>Thu, 28 May 2020 13:41:57 +0700</pubDate><guid>https://immatt2015.github.io/blogs/nginx/geoip/</guid><description>安装过程:
+vps 系统类型： Centos7
+vps 主要执行：
+安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户 添加EPEL源, 并执行更新
+yum install epel-release -y &amp;amp;&amp;amp; yum update -y &amp;amp;&amp;amp; yum upgrade -y 安装openvpn 以及 工具
+yum -y install openvpn easy-rsa 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+修改 var 项目
+#set_var EASYRSA_REQ_COUNTRY &amp;quot;US&amp;quot; #set_var EASYRSA_REQ_PROVINCE &amp;quot;California&amp;quot; #set_var EASYRSA_REQ_CITY &amp;quot;San Francisco&amp;quot; #set_var EASYRSA_REQ_ORG &amp;quot;Copyleft Certificate Co&amp;quot; #set_var EASYRSA_REQ_EMAIL &amp;quot;me@example.</description></item><item><title>Openresty GeoIp 使用</title><link>https://immatt2015.github.io/blogs/nginx/geoip/</link><pubDate>Thu, 28 May 2020 13:41:57 +0700</pubDate><guid>https://immatt2015.github.io/blogs/nginx/geoip/</guid><description>安装过程:
 到 maxmind 站点注册个账号
 vps 安装
 yum install libmaxminddb libmaxminddb-devel perl-Digest-MD5 安装 openresty 第三方包 opm get anjia0532/lua-resty-maxminddb
