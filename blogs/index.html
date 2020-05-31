@@ -15,7 +15,8 @@ vps 安装
 yum install libmaxminddb libmaxminddb-devel perl-Digest-MD5 安装 openresty 第三方包 opm get anjia0532/lua-resty-maxminddb
 openresty 配置文件, 进行初始化
 # init_by_lua_block { local geo = require 'resty.maxminddb' if not geo.initted() then geo.init("$GeoLite2.mmdb 路径") end } 可以在其他的 lua 执行节点使用
-local geo = require 'resty.maxminddb' local res, err = geo.lookup($ip) 免费库精准度一般； 测试发现很大的误差·······</div><div class="f6 text-gray mt-2">Updated <relative-time datetime=2020-05-28 class=no-wrap title="Modifyd at 2020/05/28">May 28, 2020</relative-time></div></div></li><li class="col-12 d-flex width-full py-4 border-bottom public fork"><div class="col-12 col-lg-12 d-inline-block"><div class="d-inline-block mb-1"><h3><a href=https://immatt2015.github.io/blogs/tunnel/trojan/>Trojan部署</a></h3></div><div name=posts-post class="text-gray mb-2 pr-4">Trojan 搭建只要分为4步: 准备VPS， 并装好 openresty/nginx， 开放端口 80， 443； 准备一个域名 https 证书 使用 trojan 域名 域名可以使用免费域名 dynu ddns, 注册一下， 然后到对应界面添加一个域名。
+local geo = require 'resty.maxminddb' local res, err = geo.lookup($ip) 免费库精准度一般； 测试发现很大的误差·······</div><div class="f6 text-gray mt-2">Updated <relative-time datetime=2020-05-28 class=no-wrap title="Modifyd at 2020/05/28">May 28, 2020</relative-time></div></div></li><li class="col-12 d-flex width-full py-4 border-bottom public fork"><div class="col-12 col-lg-12 d-inline-block"><div class="d-inline-block mb-1"><h3><a href=https://immatt2015.github.io/blogs/tunnel/trojan/>Trojan部署</a></h3></div><div name=posts-post class="text-gray mb-2 pr-4">Trojan 搭建只要分为4步.
+准备VPS， 并装好 openresty/nginx， 开放端口 80， 443； 准备一个域名 https 证书 使用 trojan 域名 域名可以使用免费域名 dynu ddns, 注册一下， 然后到对应界面添加一个域名。
 证书 参考 www.jouypub.com 可以使用 Let’s Encrypt 免费证书。 使用 certbot 签发免费证书，centos7 为例子:
 安装 certbot
 yum install certbot 创建好对应目录
