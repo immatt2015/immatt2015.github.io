@@ -1,31 +1,31 @@
 <!doctype html><html lang=en-us><head><meta charset=utf-8><link crossorigin=anonymous media=all rel=stylesheet href=https://immatt2015.github.io/css/frameworks.css><link crossorigin=anonymous media=all rel=stylesheet href=https://immatt2015.github.io/css/github.css><link crossorigin=anonymous media="(prefers-color-scheme: dark)" rel=stylesheet href=https://immatt2015.github.io/css/dark.css><meta name=viewport content="width=device-width"><meta name=description content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
 vps 系统类型： Centos7
  vps 主要执行：
- 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   添加EPEL源, 并执行更新
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
 yum install epel-release -y &amp;amp;&amp;amp; yum update -y &amp;amp;&amp;amp; yum upgrade -y 安装openvpn 以及 工具
-yum -y install openvpn easy-rsa 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
 修改 var 项目
 #set_var EASYRSA_REQ_COUNTRY &amp;quot;US&amp;quot; #set_var EASYRSA_REQ_PROVINCE &amp;quot;California&amp;quot; #set_var EASYRSA_REQ_CITY &amp;quot;San Francisco&amp;quot; #set_var EASYRSA_REQ_ORG &amp;quot;Copyleft Certificate Co&amp;quot; #set_var EASYRSA_REQ_EMAIL &amp;quot;me@example."><meta name=keywords content="blog,google analytics"><meta name=robots content="noodp"><link rel=canonical href=https://immatt2015.github.io/blogs/tunnel/openvpn/><meta name=twitter:card content="summary"><meta name=twitter:title content="OpenVPN 部署以及在 openwrt 上搭透明代理 - My Blog"><meta name=twitter:description content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
 vps 系统类型： Centos7
  vps 主要执行：
- 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   添加EPEL源, 并执行更新
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
 yum install epel-release -y &amp;amp;&amp;amp; yum update -y &amp;amp;&amp;amp; yum upgrade -y 安装openvpn 以及 工具
-yum -y install openvpn easy-rsa 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
 修改 var 项目
 #set_var EASYRSA_REQ_COUNTRY &amp;quot;US&amp;quot; #set_var EASYRSA_REQ_PROVINCE &amp;quot;California&amp;quot; #set_var EASYRSA_REQ_CITY &amp;quot;San Francisco&amp;quot; #set_var EASYRSA_REQ_ORG &amp;quot;Copyleft Certificate Co&amp;quot; #set_var EASYRSA_REQ_EMAIL &amp;quot;me@example."><meta name=twitter:site content="https://immatt2015.github.io/"><meta name=twitter:creator content><meta name=twitter:image content="https://immatt2015.github.io/"><meta property="og:type" content="article"><meta property="og:title" content="OpenVPN 部署以及在 openwrt 上搭透明代理 - My Blog"><meta property="og:description" content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
 vps 系统类型： Centos7
  vps 主要执行：
- 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   添加EPEL源, 并执行更新
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
 yum install epel-release -y &amp;amp;&amp;amp; yum update -y &amp;amp;&amp;amp; yum upgrade -y 安装openvpn 以及 工具
-yum -y install openvpn easy-rsa 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
 修改 var 项目
 #set_var EASYRSA_REQ_COUNTRY &amp;quot;US&amp;quot; #set_var EASYRSA_REQ_PROVINCE &amp;quot;California&amp;quot; #set_var EASYRSA_REQ_CITY &amp;quot;San Francisco&amp;quot; #set_var EASYRSA_REQ_ORG &amp;quot;Copyleft Certificate Co&amp;quot; #set_var EASYRSA_REQ_EMAIL &amp;quot;me@example."><meta property="og:url" content="https://immatt2015.github.io/blogs/tunnel/openvpn/"><meta property="og:site_name" content="OpenVPN 部署以及在 openwrt 上搭透明代理"><meta property="og:image" content="https://immatt2015.github.io/"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2020-05-28 22:42:11 +0700 +0700"><title>OpenVPN 部署以及在 openwrt 上搭透明代理 - My Blog</title><link rel=icon type=image/x-icon class=js-site-favicon href=https://immatt2015.github.io/images/favicon.ico><meta name=theme-color content="#1e2327"><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-159916317-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></head><body class="env-production emoji-size-boost page-responsive page-profile"><div class="position-relative js-header-wrapper"><span class="Progress progress-pjax-loader position-fixed width-full js-pjax-loader-bar"><span class="progress-pjax-loader-bar top-0 left-0" style=width:0%></span></span><header class="Header py-lg-0 js-details-container Details flex-wrap flex-lg-nowrap p-responsive" role=banner><div class="Header-item d-none d-lg-flex"><a class=Header-link href=https://immatt2015.github.io/ aria-label=Homepage data-ga-click="Header, go to dashboard, icon:logo"><svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class="Header-item Header-item--full flex-column flex-lg-row width-full flex-order-2 flex-lg-order-none mr-0 mr-lg-3 mt-3 mt-lg-0 Details-content--hidden"><div class="header-search flex-self-stretch flex-lg-self-auto mr-0 mr-lg-3 mb-3 mb-lg-0 scoped-search site-scoped-search js-site-search position-relative js-jump-to" role=combobox aria-owns=jump-to-results aria-label="Search or jump to" aria-haspopup=listbox aria-expanded=false><div class=position-relative></div></div></div><nav class=d-flex aria-label=Global><a class="js-selected-navigation-item Header-link py-lg-3">&nbsp;</a></nav><div class="Header-item Header-item--full flex-justify-center d-lg-none position-relative" style=margin-right:auto><a class=Header-link href=https://immatt2015.github.io/ aria-label=Homepage data-ga-click="Header, go to dashboard, icon:logo"><svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a></div><div class="Header-item position-relative mr-0 d-none d-lg-flex"><details class="details-overlay details-reset"><summary class=Header-link aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar"><img alt class=avatar src=/images/wl.png height=20 width=20></summary></details></div></header></div><div id=start-of-content class=show-on-focus></div><div id=js-flash-container></div><div class=application-main data-commit-hovercards-enabled><div itemscope itemtype=http://schema.org/SoftwareSourceCode><main><div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav pt-0 pt-lg-4"><div class="repohead-details-container clearfix container-lg p-responsive d-none d-lg-block"><div class="mb-3 d-flex"><h1 class="public css-truncate float-none flex-auto width-fit pl-0"><a class="avatar mr-1" href=https://immatt2015.github.io/about/><img src=/images/wl.png width=26 height=26></a>
 <span class=author><a href=https://immatt2015.github.io/>Matt</a></span>
 <span class=path-divider>/</span>
 <strong itemprop=name class=css-truncate-target style=max-width:410px><a href=https://immatt2015.github.io/blogs/tunnel/openvpn/>OpenVPN 部署以及在 openwrt 上搭透明代理</a></strong><div class="d-block text-small text-gray">Created <time-ago datetime=2020-05-28 class=no-wrap title="Created at 2020/05/28">2020-05-28</time-ago>
-<span class=file-info-divider></span>Modified <time-ago datetime=2020-05-28 class=no-wrap title="Modified  at 2020/05/28">2020-05-28</time-ago></div></h1></div></div></div><div class="container-lg clearfix new-discussion-timeline experiment-repo-nav p-responsive"><div class=repository-content><div class="Box mt-3 position-relative"><div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center"><div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">225 Words</div></div><div id=readme class="Box-body readme blob instapaper_body js-code-block-container"><article class="markdown-body entry-content p-3 p-md-6" itemprop=text><p>本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理</p><p>vps 系统类型： Centos7</p><hr><p>vps 主要执行：</p><ol><li>安装 openvpn 并设置</li><li>打开ipv4数据包转发</li><li>防火墙允许包转发</li><li>添加用户</li></ol><hr><p>添加EPEL源, 并执行更新</p><pre><code>yum install epel-release -y &amp;&amp; yum update -y &amp;&amp; yum upgrade -y
+<span class=file-info-divider></span>Modified <time-ago datetime=2020-05-28 class=no-wrap title="Modified  at 2020/05/28">2020-05-28</time-ago></div></h1></div></div></div><div class="container-lg clearfix new-discussion-timeline experiment-repo-nav p-responsive"><div class=repository-content><div class="Box mt-3 position-relative"><div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center"><div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">1939 Words</div></div><div id=readme class="Box-body readme blob instapaper_body js-code-block-container"><article class="markdown-body entry-content p-3 p-md-6" itemprop=text><p>本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理</p><p>vps 系统类型： Centos7</p><hr><p>vps 主要执行：</p><ol><li>安装 openvpn 并设置</li><li>打开ipv4数据包转发</li><li>防火墙允许包转发</li><li>添加用户</li></ol><hr><h3 id=服务器>服务器</h3><p>添加EPEL源, 并执行更新</p><pre><code>yum install epel-release -y &amp;&amp; yum update -y &amp;&amp; yum upgrade -y
 </code></pre><p>安装openvpn 以及 工具</p><pre><code>yum -y install openvpn easy-rsa
-</code></pre><p>复制配置文件
+</code></pre><h4 id=生成密钥>生成密钥</h4><p>复制配置文件
 cd /usr/share/easy-rsa/3
 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars</p><p>修改 var 项目</p><pre><code>#set_var EASYRSA_REQ_COUNTRY     &quot;US&quot;
 #set_var EASYRSA_REQ_PROVINCE    &quot;California&quot;
@@ -43,8 +43,219 @@ cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars</p><p>修�
 </code></pre><p>创建CA</p><pre><code>./easyrsa build-ca nopass
 </code></pre><p>创建服务器证书</p><pre><code>./easyrsa build-server-full openvpn-server nopass
 </code></pre><p>创建DH证书
-./easyrsa gen-dh</p><p>此时目录下会存在几个文件:</p><pre><code>- pki/ca.crt
+./easyrsa gen-dh</p><p>创建ta.key
+openvpn &ndash;genkey &ndash;secret pki/ta.key</p><p>此时目录下会存在几个文件:</p><pre><code>- pki/ca.crt
 - pki/dh.pem
 - pki/issued/openvpn-server.crt
 - pki/private/openvpn-server.key
-</code></pre></article></div></div></div></div></main></div></div><div class="footer container-lg width-full p-responsive" role=contentinfo><div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light"><ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"><li class="mr-3 mr-lg-0">© 2019. Theme by <a href=https://github.com/MeiK2333/github-style><span>github-style</span></a></a></li></ul><a aria-label=Homepage title="My Blog" class="footer-octicon d-none d-lg-block mx-lg-4" href=https://immatt2015.github.io/><svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a><ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"></ul></div><div class="d-flex flex-justify-center pb-6"><span class="f6 text-gray-light"></span></div></div><script crossorigin=anonymous type=application/javascript src=https://immatt2015.github.io/js/frameworks.js></script><script crossorigin=anonymous type=application/javascript src=https://immatt2015.github.io/js/github-bootstrap.js></script><script src=https://immatt2015.github.io/js/stop.js></script><script src=https://immatt2015.github.io/js/contributions.js></script></body></html>
+- pki/ta.key
+</code></pre><h4 id=配置openvpn>配置OpenVPN</h4><p>创建日志目录</p><pre><code>mkdir -p /var/log/openvpn
+chown -R openvpn:openvpn /var/log/openvpn
+</code></pre><p>复制配置文件模版</p><pre><code>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/
+</code></pre><p>修改版本文件中的几行</p><pre><code>port 1194   # 监听的端口号
+proto udp   # 服务端用的协议，udp,默认udp
+dev tap
+ca ca.crt  #   CA 根证书路径
+cert server.crt  # open VPN 服务器证书路径
+key server.key  # open VPN 服务器密钥路径，This file should be kept secret
+dh dh.pem  # Diffie-Hellman 算法密钥文件路径
+tls-auth ta.key 0 # 开启TLS-auth，使用ta.key防御攻击。服务器端的第二个参数值为0，客户端的为1。
+ifconfig-pool-persist ipp.txt #服务器自动给客户端分配IP后，客户端下次连接时，仍然采用上次的IP地址(第一次分配的IP保存在ipp.txt中，下一次分配其中保存的IP)。
+server 10.8.0.0 255.255.255.0   # 该网段为 open VPN 虚拟网卡网段，不要和内网网段冲突即可。open VPN 默认为 10.8.0.0/24
+push &quot;dhcp-option DNS 8.8.8.8&quot;  # DNS 服务器配置，可以根据需要指定其他 ns
+push &quot;dhcp-option DNS 8.8.4.4&quot;
+push &quot;redirect-gateway def1&quot;   # 客户端所有流量都通过 open VPN 转发，类似于代理开全局，VPN服务器本身要通过客户端原来的网关访问(取消redirect-gateway def1 bypass-dhcp选项后这项必须开启，否则无法访问OpenVPN服务器)
+compress lzo
+duplicate-cn   # 如果客户端都使用相同的证书和密钥连接VPN，一定要打开这个选项，否则每个证书只允许一个人连接VPN
+keepalive 10 120  # 每10秒ping一次，连接超时时间设为120秒。
+comp-lzo  # 开启VPN连接压缩，如果服务器端开启，客户端也必须开启
+client-to-client #设置客户端是否可以访问客户端
+persist-key # 持久化选项可以尽量避免访问在重启时由于用户权限降低而无法访问的某些资源。
+persist-tun
+max-clients 100 # 允许最大的客户端连接数，默认100
+user openvpn  # open VPN 进程启动用户，openvpn 用户在安装完 openvpn 后就自动生成了
+group openvpn
+log /var/log/openvpn/server.log  # 指定 log 文件位置
+log-append /var/log/openvpn/server.log
+status /var/log/openvpn/status.log
+verb 3
+explicit-exit-notify 1  # 设置断线重连功能
+cipher AES-256-CBC    #指定数据对称加密算法
+auth SHA256
+reneg-sec 0   #reneg-sec服务器端会定期检查认证情况，默认3600秒一小时，使用OTP的话尽量时间长一些，否则客户端需要重新输入用户名密码和OTP一次性密码。
+auth-nocache  #断线后防止内存中保存用户名和密码来提高安全性
+</code></pre><h4 id=系统设置>系统设置</h4><p>允许IP转发</p><pre><code>#/etc/sysctl.conf
+net.ipv4.ip_forward = 1
+</code></pre><p>执行 <code>sudo sysctl -p</code> 使配置生效</p><p>修改防火墙， 添加流量转发</p><pre><code>iptables -F
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
+</code></pre><p>持久化防火墙配置</p><pre><code>iptables-save &gt; /etc/sysconfig/iptables
+</code></pre><p>查看防火墙</p><pre><code>iptables -nvL -t nat
+</code></pre><p>但是 我测试主机重启 转发失效了， 不清楚为啥； 只要开启firewall</p><pre><code>firewall-cmd --permanent --zone=public --add-masquerade
+firewall-cmd --zone=external --add-masquerade --permanent
+firewall-cmd --permanent --direct --passthrough ipv4 -t nat POSTROUTING -o eth0 -j MASQUERADE -s 10.8.0.0/24
+firewall-cmd --reload
+</code></pre><p>启动 OpenVPN</p><pre><code>systemctl start openvpn-server@srv.service
+</code></pre><p>日志里看到 <code>journal -xe -f</code> <code>Initialization Sequence Completed</code> 信息, 表示服务端已启动。</p><h4 id=添加用户>添加用户</h4><pre><code>vim /usr/local/bin/ovpn_mgmt.sh
+chmod +x /usr/local/bin/ovpn_mgmt.sh
+</code></pre><pre><code>#!/bin/bash
+set -e
+
+# 定义环境变量
+export EASY_RSA_DIR=&quot;/usr/share/easy-rsa/3&quot;
+export CLIENT_CONFIG_DIR=&quot;/etc/openvpn/client/config&quot;
+export PKI_DIR=&quot;${EASY_RSA_DIR}/pki&quot;
+export TEMPLATES_DIR=&quot;/etc/openvpn/templates&quot;
+export CLIENT_USER_DIR=&quot;/etc/openvpn/client/user&quot;
+
+# 创建ovpn配置
+generate_ovpn() {
+	USER_OVPN=&quot;${CLIENT_USER_DIR}/${EXPIRED}-${USER}.ovpn&quot;
+	# 根据证书生成对应的ovpn文件
+    mkdir -p  ${CLIENT_USER_DIR}/
+    cp -f ${TEMPLATES_DIR}/ovpn.template ${USER_OVPN}
+    echo &quot;&lt;ca&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/ca.crt &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/ca&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;cert&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/issued/${USER}.crt &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/cert&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;key&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/private/${USER}.key &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/key&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;tls-auth&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat /etc/openvpn/pki/ta.key &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/tls-auth&gt;&quot; &gt;&gt; ${USER_OVPN}
+    sz --binary ${USER_OVPN}
+}
+
+# 添加客户端IP
+client_ip_config() {
+	# 根据ip地址生成对应的client-config
+    sed -e &quot;s,#ipaddress#,${IPADDRESS},g&quot; \
+        ${TEMPLATES_DIR}/ipconfig_push.template \
+        &gt; ${CLIENT_CONFIG_DIR}/${USER}
+}
+
+# 生成客户端证书
+add_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    ${EASY_RSA_DIR}/easyrsa build-client-full ${USER} nopass
+}
+
+# 注销客户端证书
+revoke_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    echo &quot;yes&quot; | ${EASY_RSA_DIR}/easyrsa revoke ${USER}
+	${EASY_RSA_DIR}/easyrsa gen-crl
+}
+
+# 更新客户端证书
+renew_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    echo &quot;yes&quot; | ${EASY_RSA_DIR}/easyrsa renew ${USER} nopass
+}
+
+# 检查证书过期时间
+check_cert_expired() {
+	export EXPIRED=$(date --date=&quot;$(openssl x509 -enddate -noout -in ${PKI_DIR}/issued/${USER}.crt |cut -d= -f 2)&quot; --iso-8601)
+}
+
+# 创建用户
+add_user() {
+	if [[ -e &quot;${EASY_RSA_DIR}/pki/reqs/${USER}.req&quot; ]];then
+		read -p&quot;此用户已经申请证书，是否重新生成？[y/n]：&quot; ANSWER
+		case ${ANSWER} in
+		    y|Y)
+		        revoke_cert
+		        check_cert_expired
+		        client_ip_config
+		        add_cert
+		        generate_ovpn
+		        exit 0
+		        ;;
+			n|N)
+				check_cert_expired
+				client_ip_config
+				generate_ovpn
+				;;
+		esac
+	else
+		add_cert
+		check_cert_expired
+		client_ip_config
+		generate_ovpn
+	fi
+}
+# 删除用户
+del_user() {
+	revoke_cert
+	rm -rf ${CLIENT_USER_DIR}/*${USER}.ovpn
+	rm -rf ${CLIENT_CONFIG_DIR}/${USER}
+}
+# 用户旧证过期重新生成证书
+renew_user() {
+	if [[ -e &quot;${EASY_RSA_DIR}/pki/reqs/${USER}.req&quot; ]];then
+        renew_cert
+        check_cert_expired
+        generate_ovpn
+    else
+    	echo &quot;用户证书不存在！&quot;
+    	exit 1
+    fi
+}
+
+main() {
+    # 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    # 根据传入的method运行对应函数
+    ${METHOD}
+}
+
+# 获取参数
+while getopts 'm:u:i:r' OPT;do
+    case $OPT in
+        u)
+            USER=&quot;$OPTARG&quot;
+            echo &quot;USER=${USER}&quot;
+            ;;
+        i)
+            IPADDRESS=&quot;$OPTARG&quot;
+            echo &quot;IPADDRESS=${IPADDRESS}&quot;
+            ;;
+        m)
+            METHOD=&quot;$OPTARG&quot;
+            echo &quot;METHOD=${METHOD}&quot;
+            ;;
+        ?)
+            echo &quot;Usage: $(base \&quot;$0\&quot;) -m [add_user|del_user|renew_user] -u USER -i IPADDRESS&quot;
+            exit 0
+            ;;
+    esac
+done
+
+main
+</code></pre><p>添加用户</p><pre><code>/usr/local/bin/ovpn_mgmt.sh -m add_user -u USERNAME -i 10.8.0.10
+</code></pre><p>删除用户</p><pre><code>/usr/local/bin/ovpn_mgmt.sh -m del_user -u USERNAME
+</code></pre><hr><h3 id=客户端>客户端</h3><p>Mac 可以使用 <a href=https://tunnelblick.net/>tunnelblick</a> 开源客户端</p><p>XXX.ovpn</p><pre><code>client
+proto udp
+dev tap
+remote 主机Ip 主机Port
+ca ca.crt
+cert 生成的用户.crt
+key 生成的用户.key
+tls-auth ta.key 1
+remote-cert-tls server
+comp-lzo
+verb 0
+mute-replay-warnings
+resolv-retry infinite
+nobind
+redirect-gateway
+persist-key
+persist-tun
+cipher AES-256-CBC
+auth SHA256
+</code></pre><h4 id=openwrt-使用-openvpn><code>openwrt</code> 使用 <code>openvpn</code></h4><ol><li>添加正常的 <code>openvpn</code> 配置；开启 <code>openvpn</code> 的 <code>redirect-gateway</code>；并启动 <code>openvpn</code>； 会看到一个新的网卡设备(tap 模式), 例如 tap0</li><li>添加 <code>openwrt</code> 一个接口；接口绑定 tap0 设备； 例如 ovn</li><li>在防火墙 zone 添加一个区域 ovn， 并绑定设备 ovn； 调整转发区域； lan -> ovn; ovn -> wan;</li></ol><h4 id=测试>测试</h4><ol><li><a href=https://ipleak.net/>https://ipleak.net/</a></li><li><a href=https://dnsleaktest.com/>https://dnsleaktest.com/</a></li><li><a href=https://ipv6-test.com/>https://ipv6-test.com/</a></li></ol><hr><p>参考：</p><ol><li><a href=https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html>CentOS7部署OpenVPN实现内网互通</a></li></ol></article></div></div></div></div></main></div></div><div class="footer container-lg width-full p-responsive" role=contentinfo><div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light"><ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"><li class="mr-3 mr-lg-0">© 2019. Theme by <a href=https://github.com/MeiK2333/github-style><span>github-style</span></a></a></li></ul><a aria-label=Homepage title="My Blog" class="footer-octicon d-none d-lg-block mx-lg-4" href=https://immatt2015.github.io/><svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.013 8.013.0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a><ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0"></ul></div><div class="d-flex flex-justify-center pb-6"><span class="f6 text-gray-light"></span></div></div><script crossorigin=anonymous type=application/javascript src=https://immatt2015.github.io/js/frameworks.js></script><script crossorigin=anonymous type=application/javascript src=https://immatt2015.github.io/js/github-bootstrap.js></script><script src=https://immatt2015.github.io/js/stop.js></script><script src=https://immatt2015.github.io/js/contributions.js></script></body></html>
