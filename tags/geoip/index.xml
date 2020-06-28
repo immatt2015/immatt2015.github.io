@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>geoip on My Blog</title><link>https://immatt2015.github.io/tags/geoip/</link><description>Recent content in geoip on My Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>© 2019. Theme by &lt;a href="https://github.com/MeiK2333/github-style">&lt;span>github-style&lt;/span>&lt;/a></copyright><lastBuildDate>Thu, 28 May 2020 13:41:57 +0700</lastBuildDate><atom:link href="https://immatt2015.github.io/tags/geoip/index.xml" rel="self" type="application/rss+xml"/><item><title>Openresty GeoIp 使用</title><link>https://immatt2015.github.io/posts/nginx/geoip/</link><pubDate>Thu, 28 May 2020 13:41:57 +0700</pubDate><guid>https://immatt2015.github.io/posts/nginx/geoip/</guid><description>安装过程:
-到 maxmind 站点注册个账号
-vps 安装
-yum install libmaxminddb libmaxminddb-devel perl-Digest-MD5 安装 openresty 第三方包 opm get anjia0532/lua-resty-maxminddb
-openresty 配置文件, 进行初始化
-# init_by_lua_block { local geo = require 'resty.maxminddb' if not geo.initted() then geo.init(&amp;quot;$GeoLite2.mmdb 路径&amp;quot;) end } 可以在其他的 lua 执行节点使用
-local geo = require 'resty.maxminddb' local res, err = geo.lookup($ip) 免费库精准度一般； 测试发现很大的误差·······</description></item></channel></rss>
+到 maxmind 站点注册个账号 vps 安装 yum install libmaxminddb libmaxminddb-devel perl-Digest-MD5 安装 openresty 第三方包 opm get anjia0532/lua-resty-maxminddb openresty 配置文件, 进行初始化 init_by_lua_block { local geo = require 'resty.maxminddb' if not geo.initted() then geo.init(&amp;quot;$GeoLite2.mmdb 路径&amp;quot;) end } 可以在其他的 lua 执行节点使用 local geo = require 'resty.maxminddb' local res, err = geo.lookup($ip) 免费库精准度一般； 测试发现很大的误差·······</description></item></channel></rss>
