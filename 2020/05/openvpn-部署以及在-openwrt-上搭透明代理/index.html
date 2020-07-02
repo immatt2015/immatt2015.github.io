@@ -1,0 +1,268 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Hugo 0.71.1 with theme Tranquilpeak 0.4.8-BETA"><meta name=author content="Matt"><meta name=keywords content=",development,coding"><meta name=description content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
+vps 系统类型： Centos7
+ vps 主要执行：
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
+yum install epel-release -y && yum update -y && yum upgrade -y 安装openvpn 以及 工具
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+修改 var 项目
+#set_var EASYRSA_REQ_COUNTRY &#34;US&#34; #set_var EASYRSA_REQ_PROVINCE &#34;California&#34; #set_var EASYRSA_REQ_CITY &#34;San Francisco&#34; #set_var EASYRSA_REQ_ORG &#34;Copyleft Certificate Co&#34; #set_var EASYRSA_REQ_EMAIL &#34;me@example."><meta property="og:description" content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
+vps 系统类型： Centos7
+ vps 主要执行：
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
+yum install epel-release -y && yum update -y && yum upgrade -y 安装openvpn 以及 工具
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+修改 var 项目
+#set_var EASYRSA_REQ_COUNTRY &#34;US&#34; #set_var EASYRSA_REQ_PROVINCE &#34;California&#34; #set_var EASYRSA_REQ_CITY &#34;San Francisco&#34; #set_var EASYRSA_REQ_ORG &#34;Copyleft Certificate Co&#34; #set_var EASYRSA_REQ_EMAIL &#34;me@example."><meta property="og:type" content="article"><meta property="og:title" content="OpenVPN 部署以及在 openwrt 上搭透明代理"><meta name=twitter:title content="OpenVPN 部署以及在 openwrt 上搭透明代理"><meta property="og:url" content="https://immatt2015.github.io/2020/05/openvpn-%E9%83%A8%E7%BD%B2%E4%BB%A5%E5%8F%8A%E5%9C%A8-openwrt-%E4%B8%8A%E6%90%AD%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/"><meta property="twitter:url" content="https://immatt2015.github.io/2020/05/openvpn-%E9%83%A8%E7%BD%B2%E4%BB%A5%E5%8F%8A%E5%9C%A8-openwrt-%E4%B8%8A%E6%90%AD%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/"><meta property="og:site_name" content="My Blog"><meta property="og:description" content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
+vps 系统类型： Centos7
+ vps 主要执行：
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
+yum install epel-release -y && yum update -y && yum upgrade -y 安装openvpn 以及 工具
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+修改 var 项目
+#set_var EASYRSA_REQ_COUNTRY &#34;US&#34; #set_var EASYRSA_REQ_PROVINCE &#34;California&#34; #set_var EASYRSA_REQ_CITY &#34;San Francisco&#34; #set_var EASYRSA_REQ_ORG &#34;Copyleft Certificate Co&#34; #set_var EASYRSA_REQ_EMAIL &#34;me@example."><meta name=twitter:description content="本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理
+vps 系统类型： Centos7
+ vps 主要执行：
+ 安装 openvpn 并设置 打开ipv4数据包转发 防火墙允许包转发 添加用户   服务器 添加EPEL源, 并执行更新
+yum install epel-release -y && yum update -y && yum upgrade -y 安装openvpn 以及 工具
+yum -y install openvpn easy-rsa 生成密钥 复制配置文件 cd /usr/share/easy-rsa/3 cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars
+修改 var 项目
+#set_var EASYRSA_REQ_COUNTRY &#34;US&#34; #set_var EASYRSA_REQ_PROVINCE &#34;California&#34; #set_var EASYRSA_REQ_CITY &#34;San Francisco&#34; #set_var EASYRSA_REQ_ORG &#34;Copyleft Certificate Co&#34; #set_var EASYRSA_REQ_EMAIL &#34;me@example."><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2020-05-28T22:42:11"><meta property="article:modified_time" content="2020-05-28T22:42:11"><meta property="article:tag" content="openvpn"><meta name=twitter:card content="summary"><meta property="og:image" content="https://www.gravatar.com/avatar/9023d96751d0f9008e1dc8d90c18d819?s=640"><meta property="twitter:image" content="https://www.gravatar.com/avatar/9023d96751d0f9008e1dc8d90c18d819?s=640"><title>OpenVPN 部署以及在 openwrt 上搭透明代理</title><link rel=icon href=https://immatt2015.github.io/favicon.png><link rel=canonical href=https://immatt2015.github.io/2020/05/openvpn-%E9%83%A8%E7%BD%B2%E4%BB%A5%E5%8F%8A%E5%9C%A8-openwrt-%E4%B8%8A%E6%90%AD%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-159916317-1','auto');ga('send','pageview');}</script></head><body><div id=blog><header id=header data-behavior=5><i id=btn-open-sidebar class="fa fa-lg fa-bars"></i><div class=header-title><a class=header-title-link href=https://immatt2015.github.io/>My Blog</a></div><a class=header-right-picture href=https://immatt2015.github.io/#about><img class=header-picture src="https://www.gravatar.com/avatar/9023d96751d0f9008e1dc8d90c18d819?s=90" alt="Author's picture"></a></header><nav id=sidebar data-behavior=5><div class=sidebar-container><div class=sidebar-profile><a href=https://immatt2015.github.io/#about><img class=sidebar-profile-picture src="https://www.gravatar.com/avatar/9023d96751d0f9008e1dc8d90c18d819?s=110" alt="Author's picture"></a><h4 class=sidebar-profile-name>Matt</h4><h5 class=sidebar-profile-bio>My Blog</h5></div><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/><i class="sidebar-button-icon fa fa-lg fa-home"></i><span class=sidebar-button-desc>Home</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/categories><i class="sidebar-button-icon fa fa-lg fa-bookmark"></i><span class=sidebar-button-desc>Categories</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/tags><i class="sidebar-button-icon fa fa-lg fa-tags"></i><span class=sidebar-button-desc>Tags</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/#about><i class="sidebar-button-icon fa fa-lg fa-question"></i><span class=sidebar-button-desc>About</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/archives><i class="sidebar-button-icon fa fa-lg fa-archive"></i><span class=sidebar-button-desc>Archives</span></a></li><li class=sidebar-button><a class="sidebar-button-link open-algolia-search" href=https://immatt2015.github.io/#search><i class="sidebar-button-icon fa fa-lg fa-search"></i><span class=sidebar-button-desc>Search</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://github.com/kakawait target=_blank rel=noopener><i class="sidebar-button-icon fa fa-lg fa-github"></i><span class=sidebar-button-desc>GitHub</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://stackoverflow.com/users/636472/kakawait target=_blank rel=noopener><i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i><span class=sidebar-button-desc>Stack Overflow</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/index.xml><i class="sidebar-button-icon fa fa-lg fa-rss"></i><span class=sidebar-button-desc>RSS</span></a></li></ul></div></nav><div id=main data-behavior=5 class=hasCoverMetaIn><article class=post itemscope itemtype=http://schema.org/BlogPosting><div class="post-header main-content-wrap text-left"><h1 class=post-title itemprop=headline>OpenVPN 部署以及在 openwrt 上搭透明代理</h1><div class="postShorten-meta post-meta"><time itemprop=datePublished datetime=2020-05-28T22:42:11+07:00>28 May 2020</time></div></div><div class="post-content markdown" itemprop=articleBody><div class=main-content-wrap><p>本文主要介绍的是 openvpn 部署过程 以及在 openwrt 搞透明全局代理</p><p>vps 系统类型： Centos7</p><hr><p>vps 主要执行：</p><ol><li>安装 openvpn 并设置</li><li>打开ipv4数据包转发</li><li>防火墙允许包转发</li><li>添加用户</li></ol><hr><h3 id=服务器>服务器</h3><p>添加EPEL源, 并执行更新</p><pre><code>yum install epel-release -y &amp;&amp; yum update -y &amp;&amp; yum upgrade -y
+</code></pre><p>安装openvpn 以及 工具</p><pre><code>yum -y install openvpn easy-rsa
+</code></pre><h4 id=生成密钥>生成密钥</h4><p>复制配置文件
+cd /usr/share/easy-rsa/3
+cp /usr/share/doc/easy-rsa-${ easy-rsa 版本号 }/vars.example vars</p><p>修改 var 项目</p><pre><code>#set_var EASYRSA_REQ_COUNTRY     &quot;US&quot;
+#set_var EASYRSA_REQ_PROVINCE    &quot;California&quot;
+#set_var EASYRSA_REQ_CITY        &quot;San Francisco&quot;
+#set_var EASYRSA_REQ_ORG         &quot;Copyleft Certificate Co&quot;
+#set_var EASYRSA_REQ_EMAIL       &quot;me@example.net&quot;
+#set_var EASYRSA_REQ_OU          &quot;My Organizational Unit&quot;
+#set_var EASYRSA_KEY_SIZE        4096
+#set_var EASYRSA_ALGO            rsa
+#set_var EASYRSA_CA_EXPIRE       3650
+#set_var EASYRSA_CERT_EXPIRE     365
+#set_var EASYRSA_CERT_RENEW      180
+#set_var EASYRSA_CRL_DAYS        60
+</code></pre><p>创建PKI</p><pre><code>./easyrsa init-pki
+</code></pre><p>创建CA</p><pre><code>./easyrsa build-ca nopass
+</code></pre><p>创建服务器证书</p><pre><code>./easyrsa build-server-full openvpn-server nopass
+</code></pre><p>创建DH证书
+./easyrsa gen-dh</p><p>创建ta.key
+openvpn &ndash;genkey &ndash;secret pki/ta.key</p><p>此时目录下会存在几个文件:</p><pre><code>- pki/ca.crt
+- pki/dh.pem
+- pki/issued/openvpn-server.crt
+- pki/private/openvpn-server.key
+- pki/ta.key
+</code></pre><h4 id=配置openvpn>配置OpenVPN</h4><p>创建日志目录</p><pre><code>mkdir -p /var/log/openvpn
+chown -R openvpn:openvpn /var/log/openvpn
+</code></pre><p>复制配置文件模版</p><pre><code>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/
+</code></pre><p>修改版本文件中的几行</p><pre><code>port 1194   # 监听的端口号
+proto udp   # 服务端用的协议，udp,默认udp
+dev tap
+ca ca.crt  #   CA 根证书路径
+cert server.crt  # open VPN 服务器证书路径
+key server.key  # open VPN 服务器密钥路径，This file should be kept secret
+dh dh.pem  # Diffie-Hellman 算法密钥文件路径
+tls-auth ta.key 0 # 开启TLS-auth，使用ta.key防御攻击。服务器端的第二个参数值为0，客户端的为1。
+ifconfig-pool-persist ipp.txt #服务器自动给客户端分配IP后，客户端下次连接时，仍然采用上次的IP地址(第一次分配的IP保存在ipp.txt中，下一次分配其中保存的IP)。
+server 10.8.0.0 255.255.255.0   # 该网段为 open VPN 虚拟网卡网段，不要和内网网段冲突即可。open VPN 默认为 10.8.0.0/24
+push &quot;dhcp-option DNS 8.8.8.8&quot;  # DNS 服务器配置，可以根据需要指定其他 ns
+push &quot;dhcp-option DNS 8.8.4.4&quot;
+push &quot;redirect-gateway def1&quot;   # 客户端所有流量都通过 open VPN 转发，类似于代理开全局，VPN服务器本身要通过客户端原来的网关访问(取消redirect-gateway def1 bypass-dhcp选项后这项必须开启，否则无法访问OpenVPN服务器)
+compress lzo
+duplicate-cn   # 如果客户端都使用相同的证书和密钥连接VPN，一定要打开这个选项，否则每个证书只允许一个人连接VPN
+keepalive 10 120  # 每10秒ping一次，连接超时时间设为120秒。
+comp-lzo  # 开启VPN连接压缩，如果服务器端开启，客户端也必须开启
+client-to-client #设置客户端是否可以访问客户端
+persist-key # 持久化选项可以尽量避免访问在重启时由于用户权限降低而无法访问的某些资源。
+persist-tun
+max-clients 100 # 允许最大的客户端连接数，默认100
+user openvpn  # open VPN 进程启动用户，openvpn 用户在安装完 openvpn 后就自动生成了
+group openvpn
+log /var/log/openvpn/server.log  # 指定 log 文件位置
+log-append /var/log/openvpn/server.log
+status /var/log/openvpn/status.log
+verb 3
+explicit-exit-notify 1  # 设置断线重连功能
+cipher AES-256-CBC    #指定数据对称加密算法
+auth SHA256
+reneg-sec 0   #reneg-sec服务器端会定期检查认证情况，默认3600秒一小时，使用OTP的话尽量时间长一些，否则客户端需要重新输入用户名密码和OTP一次性密码。
+auth-nocache  #断线后防止内存中保存用户名和密码来提高安全性
+</code></pre><h4 id=系统设置>系统设置</h4><p>允许IP转发</p><pre><code>#/etc/sysctl.conf
+net.ipv4.ip_forward = 1
+</code></pre><p>执行 <code>sudo sysctl -p</code> 使配置生效</p><p>修改防火墙， 添加流量转发</p><pre><code>iptables -F
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j MASQUERADE
+</code></pre><p>持久化防火墙配置</p><pre><code>iptables-save &gt; /etc/sysconfig/iptables
+</code></pre><p>查看防火墙</p><pre><code>iptables -nvL -t nat
+</code></pre><p>但是 我测试主机重启 转发失效了， 不清楚为啥； 只要开启firewall</p><pre><code>firewall-cmd --permanent --zone=public --add-masquerade
+firewall-cmd --zone=external --add-masquerade --permanent
+firewall-cmd --permanent --direct --passthrough ipv4 -t nat POSTROUTING -o eth0 -j MASQUERADE -s 10.8.0.0/24
+firewall-cmd --reload
+</code></pre><p>启动 OpenVPN</p><pre><code>systemctl start openvpn-server@srv.service
+</code></pre><p>日志里看到 <code>journal -xe -f</code> <code>Initialization Sequence Completed</code> 信息, 表示服务端已启动。</p><h4 id=添加用户>添加用户</h4><pre><code>vim /usr/local/bin/ovpn_mgmt.sh
+chmod +x /usr/local/bin/ovpn_mgmt.sh
+</code></pre><pre><code>#!/bin/bash
+set -e
+
+# 定义环境变量
+export EASY_RSA_DIR=&quot;/usr/share/easy-rsa/3&quot;
+export CLIENT_CONFIG_DIR=&quot;/etc/openvpn/client/config&quot;
+export PKI_DIR=&quot;${EASY_RSA_DIR}/pki&quot;
+export TEMPLATES_DIR=&quot;/etc/openvpn/templates&quot;
+export CLIENT_USER_DIR=&quot;/etc/openvpn/client/user&quot;
+
+# 创建ovpn配置
+generate_ovpn() {
+	USER_OVPN=&quot;${CLIENT_USER_DIR}/${EXPIRED}-${USER}.ovpn&quot;
+	# 根据证书生成对应的ovpn文件
+    mkdir -p  ${CLIENT_USER_DIR}/
+    cp -f ${TEMPLATES_DIR}/ovpn.template ${USER_OVPN}
+    echo &quot;&lt;ca&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/ca.crt &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/ca&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;cert&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/issued/${USER}.crt &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/cert&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;key&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat ${PKI_DIR}/private/${USER}.key &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/key&gt;&quot; &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;tls-auth&gt;&quot; &gt;&gt; ${USER_OVPN}
+    cat /etc/openvpn/pki/ta.key &gt;&gt; ${USER_OVPN}
+    echo &quot;&lt;/tls-auth&gt;&quot; &gt;&gt; ${USER_OVPN}
+    sz --binary ${USER_OVPN}
+}
+
+# 添加客户端IP
+client_ip_config() {
+	# 根据ip地址生成对应的client-config
+    sed -e &quot;s,#ipaddress#,${IPADDRESS},g&quot; \
+        ${TEMPLATES_DIR}/ipconfig_push.template \
+        &gt; ${CLIENT_CONFIG_DIR}/${USER}
+}
+
+# 生成客户端证书
+add_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    ${EASY_RSA_DIR}/easyrsa build-client-full ${USER} nopass
+}
+
+# 注销客户端证书
+revoke_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    echo &quot;yes&quot; | ${EASY_RSA_DIR}/easyrsa revoke ${USER}
+	${EASY_RSA_DIR}/easyrsa gen-crl
+}
+
+# 更新客户端证书
+renew_cert() {
+	# 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    echo &quot;yes&quot; | ${EASY_RSA_DIR}/easyrsa renew ${USER} nopass
+}
+
+# 检查证书过期时间
+check_cert_expired() {
+	export EXPIRED=$(date --date=&quot;$(openssl x509 -enddate -noout -in ${PKI_DIR}/issued/${USER}.crt |cut -d= -f 2)&quot; --iso-8601)
+}
+
+# 创建用户
+add_user() {
+	if [[ -e &quot;${EASY_RSA_DIR}/pki/reqs/${USER}.req&quot; ]];then
+		read -p&quot;此用户已经申请证书，是否重新生成？[y/n]：&quot; ANSWER
+		case ${ANSWER} in
+		    y|Y)
+		        revoke_cert
+		        check_cert_expired
+		        client_ip_config
+		        add_cert
+		        generate_ovpn
+		        exit 0
+		        ;;
+			n|N)
+				check_cert_expired
+				client_ip_config
+				generate_ovpn
+				;;
+		esac
+	else
+		add_cert
+		check_cert_expired
+		client_ip_config
+		generate_ovpn
+	fi
+}
+# 删除用户
+del_user() {
+	revoke_cert
+	rm -rf ${CLIENT_USER_DIR}/*${USER}.ovpn
+	rm -rf ${CLIENT_CONFIG_DIR}/${USER}
+}
+# 用户旧证过期重新生成证书
+renew_user() {
+	if [[ -e &quot;${EASY_RSA_DIR}/pki/reqs/${USER}.req&quot; ]];then
+        renew_cert
+        check_cert_expired
+        generate_ovpn
+    else
+    	echo &quot;用户证书不存在！&quot;
+    	exit 1
+    fi
+}
+
+main() {
+    # 切换到easy-rsa目录
+    cd ${EASY_RSA_DIR}
+    # 根据传入的method运行对应函数
+    ${METHOD}
+}
+
+# 获取参数
+while getopts 'm:u:i:r' OPT;do
+    case $OPT in
+        u)
+            USER=&quot;$OPTARG&quot;
+            echo &quot;USER=${USER}&quot;
+            ;;
+        i)
+            IPADDRESS=&quot;$OPTARG&quot;
+            echo &quot;IPADDRESS=${IPADDRESS}&quot;
+            ;;
+        m)
+            METHOD=&quot;$OPTARG&quot;
+            echo &quot;METHOD=${METHOD}&quot;
+            ;;
+        ?)
+            echo &quot;Usage: $(base \&quot;$0\&quot;) -m [add_user|del_user|renew_user] -u USER -i IPADDRESS&quot;
+            exit 0
+            ;;
+    esac
+done
+
+main
+</code></pre><p>添加用户</p><pre><code>/usr/local/bin/ovpn_mgmt.sh -m add_user -u USERNAME -i 10.8.0.10
+</code></pre><p>删除用户</p><pre><code>/usr/local/bin/ovpn_mgmt.sh -m del_user -u USERNAME
+</code></pre><hr><h3 id=客户端>客户端</h3><p>Mac 可以使用 <a href=https://tunnelblick.net/>tunnelblick</a> 开源客户端</p><p>XXX.ovpn</p><pre><code>client
+proto udp
+dev tap
+remote 主机Ip 主机Port
+ca ca.crt
+cert 生成的用户.crt
+key 生成的用户.key
+tls-auth ta.key 1
+remote-cert-tls server
+comp-lzo
+verb 0
+mute-replay-warnings
+resolv-retry infinite
+nobind
+redirect-gateway
+persist-key
+persist-tun
+cipher AES-256-CBC
+auth SHA256
+</code></pre><h4 id=openwrt-使用-openvpn><code>openwrt</code> 使用 <code>openvpn</code></h4><ol><li>添加正常的 <code>openvpn</code> 配置；开启 <code>openvpn</code> 的 <code>redirect-gateway</code>；并启动 <code>openvpn</code>； 会看到一个新的网卡设备(tap 模式), 例如 tap0</li><li>添加 <code>openwrt</code> 一个接口；接口绑定 tap0 设备； 例如 ovn</li><li>在防火墙 zone 添加一个区域 ovn， 并绑定设备 ovn； 调整转发区域； lan -> ovn; ovn -> wan;</li></ol><h4 id=测试>测试</h4><ol><li><a href=https://ipleak.net/>https://ipleak.net/</a></li><li><a href=https://dnsleaktest.com/>https://dnsleaktest.com/</a></li><li><a href=https://ipv6-test.com/>https://ipv6-test.com/</a></li></ol><hr><p>参考：</p><ol><li><a href=https://luanlengli.github.io/2019/11/25/CentOS7%E9%83%A8%E7%BD%B2OpenVPN%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%BA%92%E9%80%9A.html>CentOS7部署OpenVPN实现内网互通</a></li></ol></div></div><div id=post-footer class="post-footer main-content-wrap"><div class=post-footer-tags><span class="text-color-light text-small">TAGGED IN</span><br><a class="tag tag--primary tag--small" href=https://immatt2015.github.io/tags/openvpn/>openvpn</a></div><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2020/05/openresty-geoip-%E4%BD%BF%E7%94%A8/ data-tooltip="Openresty GeoIp 使用"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2020/05/lua-ffi-%E8%B0%83%E7%94%A8-golang/ data-tooltip="Lua FFI 调用 golang"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div><div id=disqus_thread><noscript>Please enable JavaScript to view the <a href=//disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></div></article><footer id=footer class=main-content-wrap><span class=copyrights>&copy; 2020 Matt. All Rights Reserved</span></footer></div><div id=bottom-bar class=post-bottom-bar data-behavior=5><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2020/05/openresty-geoip-%E4%BD%BF%E7%94%A8/ data-tooltip="Openresty GeoIp 使用"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2020/05/lua-ffi-%E8%B0%83%E7%94%A8-golang/ data-tooltip="Lua FFI 调用 golang"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div></div><div id=share-options-bar class=share-options-bar data-behavior=5><i id=btn-close-shareoptions class="fa fa-close"></i><ul class=share-options></ul></div><div id=share-options-mask class=share-options-mask></div></div><div id=about><div id=about-card><div id=about-btn-close><i class="fa fa-remove"></i></div><img id=about-card-picture src="https://www.gravatar.com/avatar/9023d96751d0f9008e1dc8d90c18d819?s=110" alt="Author's picture"><h4 id=about-card-name>Matt</h4><div id=about-card-bio>My Blog</div><div id=about-card-job><i class="fa fa-briefcase"></i><br>Nil</div><div id=about-card-location><i class="fa fa-map-marker"></i><br>China</div></div></div><div id=cover style=background-image:url(https://immatt2015.github.io/images/cover.jpg)></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js></script><script lang=javascript>window.onload=updateMinWidth;window.onresize=updateMinWidth;document.getElementById("sidebar").addEventListener("transitionend",updateMinWidth);function updateMinWidth(){var sidebar=document.getElementById("sidebar");var main=document.getElementById("main");main.style.minWidth="";var w1=getComputedStyle(main).getPropertyValue("min-width");var w2=getComputedStyle(sidebar).getPropertyValue("width");var w3=getComputedStyle(sidebar).getPropertyValue("left");main.style.minWidth=`calc(${w1} - ${w2} - ${w3})`;}</script><script>$(document).ready(function(){hljs.configure({classPrefix:'',useBR:false});$('pre.code-highlight > code, pre > code').each(function(i,block){if(!$(this).hasClass('codeblock')){$(this).addClass('codeblock');}
+hljs.highlightBlock(block);});});</script><script>var disqus_config=function(){this.page.url='https:\/\/immatt2015.github.io\/2020\/05\/openvpn-%E9%83%A8%E7%BD%B2%E4%BB%A5%E5%8F%8A%E5%9C%A8-openwrt-%E4%B8%8A%E6%90%AD%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86\/';this.page.identifier='\/2020\/05\/openvpn-%E9%83%A8%E7%BD%B2%E4%BB%A5%E5%8F%8A%E5%9C%A8-openwrt-%E4%B8%8A%E6%90%AD%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86\/'};(function(){if(window.location.hostname=="localhost"){return;}
+var d=document,s=d.createElement('script');var disqus_shortname='hugo-tranquilpeak-theme';s.src='//'+disqus_shortname+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script></body></html>
