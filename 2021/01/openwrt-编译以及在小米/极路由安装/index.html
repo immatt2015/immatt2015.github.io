@@ -21,12 +21,11 @@ src-git freifunk https://github.com/freifunk/openwrt-packages.git
 #src-git management https://github.com/openwrt-management/packages.git
 #src-git oldpackages http://git.openwrt.org/packages.git
 #src-link custom /usr/src/openwrt/custom-feed
+
 src-git xiaorouji https://github.com/xiaorouji/openwrt-passwall
 src-git openclash https://github.com/vernesong/openclash
 src-git accessControl https://github.com/Aslin-Ameng/luci-app-access-control
-#src-git vssr https://github.com/jerrykuku/luci-app-vssr
 src-git kenzo https://github.com/kenzok8/openwrt-packages
-#src-link lean /home/parallels/Documents/lede/package/lean
 </code></pre><p>设置编译固件的平台，以及组件</p><pre><code>make menuconfig
 </code></pre><pre><code>make -j$(($(nproc) + 1)) V=s
 </code></pre><p>小米/红米 AC2100 编译参数 <code>MediaTek Ralink MIPS, MT7621 based boards, Xiaomi ***Mi Router Ac2100</code>
