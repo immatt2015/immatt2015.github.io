@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>trojan on My Blog</title><link>https://immatt2015.github.io/tags/trojan/</link><description>Recent content in trojan on My Blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 28 May 2020 13:41:46 +0700</lastBuildDate><atom:link href="https://immatt2015.github.io/tags/trojan/index.xml" rel="self" type="application/rss+xml"/><item><title>Trojan部署</title><link>https://immatt2015.github.io/2020/05/trojan%E9%83%A8%E7%BD%B2/</link><pubDate>Thu, 28 May 2020 13:41:46 +0700</pubDate><guid>https://immatt2015.github.io/2020/05/trojan%E9%83%A8%E7%BD%B2/</guid><description>Trojan 搭建只要分为4步.
-准备VPS， 并装好 openresty/nginx， 开放端口 80， 443； 准备一个域名 https 证书 使用 trojan 域名 域名可以使用免费域名 dynu ddns, 注册一下， 然后到对应界面添加一个域名。
-证书 参考 www.jouypub.com 可以使用 Let’s Encrypt 免费证书。 使用 certbot 签发免费证书，centos7 为例子:
-安装 certbot
-yum install certbot 创建好对应目录
-cd /usr/local/openresty/nginx/html/; mkdir .well-known // openresty 默认路径 在 nginx 80端口设置好 well-know 访问路径
-location /.well-known/ { root /usr/local/openresty/nginx/html; } 使用certbot 签发证书, 会提示邮箱地址，这个随意填</description></item></channel></rss>
