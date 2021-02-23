@@ -1,0 +1,144 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Hugo 0.71.1 with theme Tranquilpeak 0.4.8-BETA"><meta name=author content="Matt"><meta name=keywords content=",development,coding"><meta name=description content="脚本来自 (github action)[https://github.com/281677160/build-openwrt)
+编译的软件会有冲突, (参考)[https://github.com/281677160/openwrt-package]
+出现error: ext4_allocate_best_fit_partial: failed to allocate XXX blocks, out of space错误的解决办法： make menuconfig,找到菜单项&#34;Target Images&#34;,&#34;Root filesystem partition size (in MB)&#34;,把值改大即可
+脚本内容:
+# 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。 # 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。 # 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。 # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4] # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64] # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5] # [openwrt] REPO_URL=&#34;https://github.com/coolsnowwolf/lede&#34; #编译固件源码链接（请勿修改） REPO_BRANCH=&#34;master&#34; #源码链接的分支（请勿修改） CONFIG_FILE=&#34;.config&#34; #配置文件（可SSH远程定制固件插件，也可在本地提取配置粘贴到此文件）(默认4GB内存的,要编译1GB内存的把 .config 修改成 1gb.config 就可以了) WXFB_MESSAGE=&#34;Lede_nanopi_r4s&#34; #微信通知跟发布要用到的名字,比如通知你XX开始编译,发布的时候显示XX固件 DIY_P1_SH=&#34;diy-1.sh&#34; #自定义文件1 DIY_P2_SH=&#34;diy-2.sh&#34; #自定义文件2 matrix_target=&#34;Lede_nanopi_r4s&#34; # 安装编译所需环境 sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc sudo -E apt-get -qq update -y sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev-i386 libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2."><meta property="og:description" content="脚本来自 (github action)[https://github.com/281677160/build-openwrt)
+编译的软件会有冲突, (参考)[https://github.com/281677160/openwrt-package]
+出现error: ext4_allocate_best_fit_partial: failed to allocate XXX blocks, out of space错误的解决办法： make menuconfig,找到菜单项&#34;Target Images&#34;,&#34;Root filesystem partition size (in MB)&#34;,把值改大即可
+脚本内容:
+# 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。 # 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。 # 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。 # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4] # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64] # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5] # [openwrt] REPO_URL=&#34;https://github.com/coolsnowwolf/lede&#34; #编译固件源码链接（请勿修改） REPO_BRANCH=&#34;master&#34; #源码链接的分支（请勿修改） CONFIG_FILE=&#34;.config&#34; #配置文件（可SSH远程定制固件插件，也可在本地提取配置粘贴到此文件）(默认4GB内存的,要编译1GB内存的把 .config 修改成 1gb.config 就可以了) WXFB_MESSAGE=&#34;Lede_nanopi_r4s&#34; #微信通知跟发布要用到的名字,比如通知你XX开始编译,发布的时候显示XX固件 DIY_P1_SH=&#34;diy-1.sh&#34; #自定义文件1 DIY_P2_SH=&#34;diy-2.sh&#34; #自定义文件2 matrix_target=&#34;Lede_nanopi_r4s&#34; # 安装编译所需环境 sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc sudo -E apt-get -qq update -y sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev-i386 libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2."><meta property="og:type" content="article"><meta property="og:title" content="NanoPi r4s lede 固件编译"><meta name=twitter:title content="NanoPi r4s lede 固件编译"><meta property="og:url" content="https://immatt2015.github.io/2021/02/nanopi-r4s-lede-%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91/"><meta property="twitter:url" content="https://immatt2015.github.io/2021/02/nanopi-r4s-lede-%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91/"><meta property="og:site_name" content="My Blog"><meta property="og:description" content="脚本来自 (github action)[https://github.com/281677160/build-openwrt)
+编译的软件会有冲突, (参考)[https://github.com/281677160/openwrt-package]
+出现error: ext4_allocate_best_fit_partial: failed to allocate XXX blocks, out of space错误的解决办法： make menuconfig,找到菜单项&#34;Target Images&#34;,&#34;Root filesystem partition size (in MB)&#34;,把值改大即可
+脚本内容:
+# 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。 # 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。 # 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。 # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4] # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64] # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5] # [openwrt] REPO_URL=&#34;https://github.com/coolsnowwolf/lede&#34; #编译固件源码链接（请勿修改） REPO_BRANCH=&#34;master&#34; #源码链接的分支（请勿修改） CONFIG_FILE=&#34;.config&#34; #配置文件（可SSH远程定制固件插件，也可在本地提取配置粘贴到此文件）(默认4GB内存的,要编译1GB内存的把 .config 修改成 1gb.config 就可以了) WXFB_MESSAGE=&#34;Lede_nanopi_r4s&#34; #微信通知跟发布要用到的名字,比如通知你XX开始编译,发布的时候显示XX固件 DIY_P1_SH=&#34;diy-1.sh&#34; #自定义文件1 DIY_P2_SH=&#34;diy-2.sh&#34; #自定义文件2 matrix_target=&#34;Lede_nanopi_r4s&#34; # 安装编译所需环境 sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc sudo -E apt-get -qq update -y sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev-i386 libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2."><meta name=twitter:description content="脚本来自 (github action)[https://github.com/281677160/build-openwrt)
+编译的软件会有冲突, (参考)[https://github.com/281677160/openwrt-package]
+出现error: ext4_allocate_best_fit_partial: failed to allocate XXX blocks, out of space错误的解决办法： make menuconfig,找到菜单项&#34;Target Images&#34;,&#34;Root filesystem partition size (in MB)&#34;,把值改大即可
+脚本内容:
+# 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。 # 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。 # 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。 # [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4] # [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64] # [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5] # [openwrt] REPO_URL=&#34;https://github.com/coolsnowwolf/lede&#34; #编译固件源码链接（请勿修改） REPO_BRANCH=&#34;master&#34; #源码链接的分支（请勿修改） CONFIG_FILE=&#34;.config&#34; #配置文件（可SSH远程定制固件插件，也可在本地提取配置粘贴到此文件）(默认4GB内存的,要编译1GB内存的把 .config 修改成 1gb.config 就可以了) WXFB_MESSAGE=&#34;Lede_nanopi_r4s&#34; #微信通知跟发布要用到的名字,比如通知你XX开始编译,发布的时候显示XX固件 DIY_P1_SH=&#34;diy-1.sh&#34; #自定义文件1 DIY_P2_SH=&#34;diy-2.sh&#34; #自定义文件2 matrix_target=&#34;Lede_nanopi_r4s&#34; # 安装编译所需环境 sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc sudo -E apt-get -qq update -y sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev-i386 libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2."><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2021-02-12T15:14:30"><meta property="article:modified_time" content="2021-02-12T15:14:30"><meta name=twitter:card content="summary"><meta property="og:image" content="https://immatt2015.github.io/images/wl.png"><meta property="twitter:image" content="https://immatt2015.github.io/images/wl.png"><title>NanoPi r4s lede 固件编译</title><link rel=icon href=https://immatt2015.github.io/favicon.png><link rel=canonical href=https://immatt2015.github.io/2021/02/nanopi-r4s-lede-%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91/><link rel=stylesheet href=https://immatt2015.github.io/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/jquery.fancybox.min.css integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/jquery.fancybox-thumbs.min.css integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/tranquilpeak.css><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-159916317-1','auto');ga('send','pageview');}</script></head><body><div id=blog><header id=header data-behavior=5><i id=btn-open-sidebar class="fa fa-lg fa-bars"></i><div class=header-title><a class=header-title-link href=https://immatt2015.github.io/>My Blog</a></div><a class=header-right-picture href=https://immatt2015.github.io/#about><img class=header-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"></a></header><nav id=sidebar data-behavior=5><div class=sidebar-container><div class=sidebar-profile><a href=https://immatt2015.github.io/#about><img class=sidebar-profile-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"></a><h4 class=sidebar-profile-name>Matt</h4><h5 class=sidebar-profile-bio>My Blog</h5></div><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/><i class="sidebar-button-icon fa fa-lg fa-home"></i><span class=sidebar-button-desc>Home</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/tags><i class="sidebar-button-icon fa fa-lg fa-tags"></i><span class=sidebar-button-desc>Tags</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/archives><i class="sidebar-button-icon fa fa-lg fa-archive"></i><span class=sidebar-button-desc>Archives</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/#about><i class="sidebar-button-icon fa fa-lg fa-question"></i><span class=sidebar-button-desc>About</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://github.com/immatt2015 target=_blank rel=noopener><i class="sidebar-button-icon fa fa-lg fa-github"></i><span class=sidebar-button-desc>GitHub</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/index.xml><i class="sidebar-button-icon fa fa-lg fa-rss"></i><span class=sidebar-button-desc>RSS</span></a></li></ul></div></nav><div id=main data-behavior=5 class=hasCoverMetaIn><article class=post itemscope itemtype=http://schema.org/BlogPosting><div class="post-header main-content-wrap text-left"><h1 class=post-title itemprop=headline>NanoPi r4s lede 固件编译</h1><div class="postShorten-meta post-meta"><time itemprop=datePublished datetime=2021-02-12T15:14:30+08:00>12 February 2021</time></div></div><div class="post-content markdown" itemprop=articleBody><div class=main-content-wrap><p>脚本来自 (github action)[https://github.com/281677160/build-openwrt)</p><p>编译的软件会有冲突, (参考)[https://github.com/281677160/openwrt-package]</p><p>出现<code>error: ext4_allocate_best_fit_partial: failed to allocate XXX blocks, out of space</code>错误的解决办法： <code>make menuconfig</code>,找到菜单项<code>"Target Images","Root filesystem partition size (in MB)"</code>,把值改大即可</p><p>脚本内容:</p><pre><code># 除了编译【openwrt】机型外，其他机型都直接打入了常用插件了，不需要自己再拉取插件，除非我的插件包跟源码自带的都没有，你就自己添加吧，说明的《各种命令的简单介绍》有教程。
+# 选择编译【openwrt】纯天然不经任何修改的，增加插件可以在diy-1.sh增加，也可在settings.ini里修改成你想要编译的源码跟分支。
+# 选择【Lede_phicomm_n1或Project_phicomm_n1】的机型文件夹编译的话，会自动编译出（ N1、微加云、贝壳云、我家云、S9xxx ）固件。
+# [Lede_x86_64,Lede_gl_mt300n_v2,Lede_nanopi_r2s,Lede_nanopi_r4s,Lede_newifi_d2,p2w_r619ac_128m,Lede_phicomm_k2p,Lede_phicomm_n1,Lede_redmi_ac2100,Lede_wankeyun,Lede_wndr3800,Lede_wndr4300_v1,Lede_wr703n_v1,Lede_xiaomi_r3pro,Lede_xiaoyu_c5,Lede_Raspberry_Pi4]
+# [Lienol_phicomm_k2p,Lienol_phicomm_k3,Lienol_x86_64]
+# [Project_x86_64,Project_nanopi_r2s,Project_nanopi_r4s,Project_newifi_d2,Project_phicomm_k3,Project_phicomm_n1,Project_xiaomi_ac2100,Project_xiaomi_mir3g,Project_xiaoyu_c5]
+# [openwrt] 
+
+REPO_URL=&quot;https://github.com/coolsnowwolf/lede&quot;     #编译固件源码链接（请勿修改）
+REPO_BRANCH=&quot;master&quot;                                #源码链接的分支（请勿修改）
+CONFIG_FILE=&quot;.config&quot;            #配置文件（可SSH远程定制固件插件，也可在本地提取配置粘贴到此文件）(默认4GB内存的,要编译1GB内存的把 .config 修改成 1gb.config 就可以了)
+WXFB_MESSAGE=&quot;Lede_nanopi_r4s&quot;         #微信通知跟发布要用到的名字,比如通知你XX开始编译,发布的时候显示XX固件
+DIY_P1_SH=&quot;diy-1.sh&quot;                     #自定义文件1
+DIY_P2_SH=&quot;diy-2.sh&quot;                 #自定义文件2
+matrix_target=&quot;Lede_nanopi_r4s&quot;
+
+# 安装编译所需环境
+sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+sudo -E apt-get -qq update -y
+sudo -E apt-get -qq install -y build-essential asciidoc binutils bzip2 gawk gettext git libc6-dev-i386 libncurses5 libtinfo-dev libtinfo5 ncurses-doc libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
+sudo -E apt-get -qq autoremove -y --purge
+sudo -E apt-get -qq clean -y
+sudo timedatectl set-timezone &quot;$TZ&quot;
+sudo mkdir -p ~/workdir
+sudo chown $USER:$GROUPS ~/workdir
+
+# 下载编译的源码
+cd ~/workdir
+df -hT $PWD
+git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
+ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+git clone -b main --single-branch https://github.com/281677160/Custom openwrt/common
+chmod +x openwrt/common/* ./
+
+cd ~/workdir/openwrt
+source common/common.sh &amp;&amp; Diy_notice
+
+# 加载源,patch补丁和自定义设置
+cd ~/workdir
+cp -Rf `find ./ -maxdepth 1 -type d ! -path './openwrt' ! -path './'` openwrt
+cd openwrt
+source common/common.sh &amp;&amp; Diy_all
+if [ ${matrix_target} != &quot;openwrt&quot; ]; then
+if [ &quot;${REPO_URL}&quot; == &quot;https://github.com/coolsnowwolf/lede&quot; ]; then
+source common/common.sh &amp;&amp; Diy_lede
+elif [ &quot;${REPO_URL}&quot; == &quot;https://github.com/Lienol/openwrt&quot; ]; then
+source common/common.sh &amp;&amp; Diy_lienol
+elif [ &quot;${REPO_URL}&quot; == &quot;https://github.com/immortalwrt/immortalwrt&quot; ]; then
+source common/common.sh &amp;&amp; Diy_immortalwrt
+fi
+fi
+if [ -f &quot;build/${matrix_target}/$DIY_P1_SH&quot; ]; then
+chmod +x build/${matrix_target}/$DIY_P1_SH
+/bin/bash &quot;build/${matrix_target}/$DIY_P1_SH&quot;
+fi
+./scripts/feeds clean &amp;&amp; ./scripts/feeds update -a
+./scripts/feeds install -a &amp;&amp; ./scripts/feeds install -a
+source common/common.sh &amp;&amp; Diy_all2
+if [ &quot;${REPO_URL}&quot; == &quot;https://github.com/coolsnowwolf/lede&quot; ]; then
+source common/common.sh &amp;&amp; Diy_lede2
+echo &quot;NAME2=Lede-&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;Source=Lede&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;ZUOZHE=lean&quot; &gt;&gt; $GITHUB_ENV
+elif [ &quot;${REPO_URL}&quot; == &quot;https://github.com/Lienol/openwrt&quot; ]; then
+source common/common.sh &amp;&amp; Diy_lienol2
+echo &quot;NAME2=Lienol-&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;Source=Lienol&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;ZUOZHE=lienol&quot; &gt;&gt; $GITHUB_ENV
+elif [ &quot;${REPO_URL}&quot; == &quot;https://github.com/immortalwrt/immortalwrt&quot; ]; then
+source common/common.sh &amp;&amp; Diy_immortalwrt2
+echo &quot;NAME2=Project-&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;Source=Project&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;ZUOZHE=CTCGFW&quot; &gt;&gt; $GITHUB_ENV
+fi
+if [ -f &quot;build/${matrix_target}/$DIY_P2_SH&quot; ]; then
+chmod +x build/${matrix_target}/$DIY_P2_SH
+/bin/bash &quot;build/${matrix_target}/$DIY_P2_SH&quot;
+fi
+if [ -n &quot;$(ls -A &quot;build/${matrix_target}/patches&quot; 2&gt;/dev/null)&quot; ]; then
+find &quot;build/${matrix_target}/patches&quot; -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c &quot;cat '%'  | patch -d './' -p1 --forward --no-backup-if-mismatch&quot;
+fi
+if [ -n &quot;$(ls -A &quot;build/${matrix_target}/files&quot; 2&gt;/dev/null)&quot; ]; then
+cp -rf build/${matrix_target}/files files
+chmod -R 777 build/${matrix_target}/files/* ./
+fi
+if [ -n &quot;$(ls -A &quot;build/${matrix_target}/diy&quot; 2&gt;/dev/null)&quot; ]; then
+cp -Rf build/${matrix_target}/diy/* ./
+fi
+[ -e build/${matrix_target}/$CONFIG_FILE ] &amp;&amp; mv build/${matrix_target}/$CONFIG_FILE .config
+if [ ${matrix_target} != &quot;openwrt&quot; ]; then
+if [ &quot;${REGULAR_UPDATE}&quot; == &quot;true&quot; ]; then
+echo &quot;Compile_Date=$(date +%Y%m%d-%H%M)&quot; &gt; $GITHUB_WORKSPACE/Openwrt.info
+source common/upgrade.sh &amp;&amp; Diy_Part1
+fi
+fi
+
+# 下载软件包
+cd ~/workdir/openwrt
+make defconfig
+make download -j8
+find dl -size -1024c -exec ls -l {} \;
+find dl -size -1024c -exec rm -f {} \;
+
+
+# 编译固件
+cd ~/workdir/openwrt
+echo -e &quot;$(($(nproc)+1)) thread compile&quot;
+make -j$(($(nproc)+5)) || make -j10 V=s
+echo &quot;::set-output name=status::success&quot;
+echo &quot;date=$(date &quot;+%y.%m.%d-%H%M&quot;)&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;date1=$(date &quot;+%Y年%m月%d号-%H点%M分&quot;)&quot; &gt;&gt; $GITHUB_ENV
+echo &quot;date2=$(date &quot;+%Y%m%d%H%M%S&quot;)&quot; &gt;&gt; $GITHUB_ENV
+DEVICE=&quot;$(awk -F '[=&quot;]+' '/TARGET_BOARD/{print $2}' .config)&quot;
+SUBTARGET=&quot;$(awk -F '[=&quot;]+' '/TARGET_SUBTARGET/{print $2}' .config)&quot;
+if [ &quot;${DEVICE}&quot; == &quot;x86&quot; ]; then
+echo &quot;NAME1=x86-${SUBTARGET}&quot; &gt;&gt; $GITHUB_ENV
+elif [[ ${matrix_target} =~ (Lede_phicomm_n1|Project_phicomm_n1) ]]; then
+echo &quot;NAME1=n1,Vplus,Beikeyun,L1Pro,S9xxx&quot; &gt;&gt; $GITHUB_ENV
+elif [ &quot;${DEVICE}&quot; != &quot;x86&quot; ]; then
+grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' &gt; NAME1
+[ -s NAME1 ] &amp;&amp; echo &quot;NAME1=$(cat NAME1)&quot; &gt;&gt; $GITHUB_ENV
+fi
+
+</code></pre></div></div><div id=post-footer class="post-footer main-content-wrap"><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2021/02/nodejs-%E6%8D%A2%E6%BA%90/ data-tooltip="nodejs 换源"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--disabled"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div><div id=disqus_thread><noscript>Please enable JavaScript to view the <a href=//disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></div></article><footer id=footer class=main-content-wrap><span class=copyrights>&copy; 2021 Matt. All Rights Reserved</span></footer></div><div id=bottom-bar class=post-bottom-bar data-behavior=5><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2021/02/nodejs-%E6%8D%A2%E6%BA%90/ data-tooltip="nodejs 换源"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--disabled"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div></div><div id=share-options-bar class=share-options-bar data-behavior=5><i id=btn-close-shareoptions class="fa fa-close"></i><ul class=share-options></ul></div><div id=share-options-mask class=share-options-mask></div></div><div id=about><div id=about-card><div id=about-btn-close><i class="fa fa-remove"></i></div><img id=about-card-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"><h4 id=about-card-name>Matt</h4><div id=about-card-bio>My Blog</div><div id=about-card-job><i class="fa fa-briefcase"></i><br>Nil</div><div id=about-card-location><i class="fa fa-map-marker"></i><br>China</div></div></div><div id=cover style=background-image:url(https://immatt2015.github.io/images/bgImg.webp)></div><script src=https://immatt2015.github.io/js/jquery.min.js integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/highlight.min.js integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/jquery.fancybox.min.js integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/tranquilpeak.js></script><script lang=javascript>window.onload=updateMinWidth;window.onresize=updateMinWidth;document.getElementById("sidebar").addEventListener("transitionend",updateMinWidth);function updateMinWidth(){var sidebar=document.getElementById("sidebar");var main=document.getElementById("main");main.style.minWidth="";var w1=getComputedStyle(main).getPropertyValue("min-width");var w2=getComputedStyle(sidebar).getPropertyValue("width");var w3=getComputedStyle(sidebar).getPropertyValue("left");main.style.minWidth=`calc(${w1} - ${w2} - ${w3})`;}</script><script>$(document).ready(function(){hljs.configure({classPrefix:'',useBR:false});$('pre.code-highlight > code, pre > code').each(function(i,block){if(!$(this).hasClass('codeblock')){$(this).addClass('codeblock');}
+hljs.highlightBlock(block);});});</script><script>var disqus_config=function(){this.page.url='https:\/\/immatt2015.github.io\/2021\/02\/nanopi-r4s-lede-%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91\/';this.page.identifier='\/2021\/02\/nanopi-r4s-lede-%E5%9B%BA%E4%BB%B6%E7%BC%96%E8%AF%91\/'};(function(){if(window.location.hostname=="localhost"){return;}
+var d=document,s=d.createElement('script');var disqus_shortname='hugo-tranquilpeak-theme';s.src='//'+disqus_shortname+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script></body></html>
