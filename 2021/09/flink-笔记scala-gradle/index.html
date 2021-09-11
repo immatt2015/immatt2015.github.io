@@ -1,0 +1,130 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Hugo 0.71.1 with theme Tranquilpeak 0.4.8-BETA"><meta name=author content="Matt"><meta name=keywords content=",development,coding"><meta name=description content="flink Notes flink 集群安装(standalon集群) (centos8环境)  flink要部署的集群,master节点要开放端口(8081,6123,37243), 并配置好 master节点可以无密码登陆worker节点(通过ssh密钥登陆).
+  安装java, 到flink 官网下载最新压缩包,并解压. 参考flink官方
+a. dnf install java-1.8.0-openjdk-devel
+b. 修改flink路径下的config/flink.yml, 修改配置: ``` jobmanager.rpc.address: ${master节点的ip/domain} jobmanager.rpc.port: 6123
+ jobmanager.heap.size: 1024m taskmanager.memory.process.size: 1568m taskmanager.numberOfTaskSlots: 3 parallelism.default: 3 ``` `jobmanager.rpc.address` 配置项指向 master 节点。也应该通过设置 `jobmanager.memory.process.size` 和 `taskmanager.memory.process.size` 配置项来定义 `Flink` 允许在每个节点上分配的最大内存值。这些值的单位是 MB。如果一些 worker 节点上有你想分配到 Flink 系统的多余内存，你可以在这些特定节点的 conf/flink-conf.yaml 文件中重写` taskmanager.memory.process.size` 或 `taskmanager.memory.flink.size` 的默认值。最后，你必须提供集群上会被用作为 worker 节点的所有节点列表，也就是运行 TaskManager 的节点。编辑文件 conf/workers 并输入每个 worker 节点的 IP 或主机名。  c. 向config/masters文件中添加master节点的ip:port"><meta property="og:description" content="flink Notes flink 集群安装(standalon集群) (centos8环境)  flink要部署的集群,master节点要开放端口(8081,6123,37243), 并配置好 master节点可以无密码登陆worker节点(通过ssh密钥登陆).
+  安装java, 到flink 官网下载最新压缩包,并解压. 参考flink官方
+a. dnf install java-1.8.0-openjdk-devel
+b. 修改flink路径下的config/flink.yml, 修改配置: ``` jobmanager.rpc.address: ${master节点的ip/domain} jobmanager.rpc.port: 6123
+ jobmanager.heap.size: 1024m taskmanager.memory.process.size: 1568m taskmanager.numberOfTaskSlots: 3 parallelism.default: 3 ``` `jobmanager.rpc.address` 配置项指向 master 节点。也应该通过设置 `jobmanager.memory.process.size` 和 `taskmanager.memory.process.size` 配置项来定义 `Flink` 允许在每个节点上分配的最大内存值。这些值的单位是 MB。如果一些 worker 节点上有你想分配到 Flink 系统的多余内存，你可以在这些特定节点的 conf/flink-conf.yaml 文件中重写` taskmanager.memory.process.size` 或 `taskmanager.memory.flink.size` 的默认值。最后，你必须提供集群上会被用作为 worker 节点的所有节点列表，也就是运行 TaskManager 的节点。编辑文件 conf/workers 并输入每个 worker 节点的 IP 或主机名。  c. 向config/masters文件中添加master节点的ip:port"><meta property="og:type" content="article"><meta property="og:title" content="flink 笔记(scala + gradle)"><meta name=twitter:title content="flink 笔记(scala + gradle)"><meta property="og:url" content="https://immatt2015.github.io/2021/09/flink-%E7%AC%94%E8%AE%B0scala-gradle/"><meta property="twitter:url" content="https://immatt2015.github.io/2021/09/flink-%E7%AC%94%E8%AE%B0scala-gradle/"><meta property="og:site_name" content="My Blog"><meta property="og:description" content="flink Notes flink 集群安装(standalon集群) (centos8环境)  flink要部署的集群,master节点要开放端口(8081,6123,37243), 并配置好 master节点可以无密码登陆worker节点(通过ssh密钥登陆).
+  安装java, 到flink 官网下载最新压缩包,并解压. 参考flink官方
+a. dnf install java-1.8.0-openjdk-devel
+b. 修改flink路径下的config/flink.yml, 修改配置: ``` jobmanager.rpc.address: ${master节点的ip/domain} jobmanager.rpc.port: 6123
+ jobmanager.heap.size: 1024m taskmanager.memory.process.size: 1568m taskmanager.numberOfTaskSlots: 3 parallelism.default: 3 ``` `jobmanager.rpc.address` 配置项指向 master 节点。也应该通过设置 `jobmanager.memory.process.size` 和 `taskmanager.memory.process.size` 配置项来定义 `Flink` 允许在每个节点上分配的最大内存值。这些值的单位是 MB。如果一些 worker 节点上有你想分配到 Flink 系统的多余内存，你可以在这些特定节点的 conf/flink-conf.yaml 文件中重写` taskmanager.memory.process.size` 或 `taskmanager.memory.flink.size` 的默认值。最后，你必须提供集群上会被用作为 worker 节点的所有节点列表，也就是运行 TaskManager 的节点。编辑文件 conf/workers 并输入每个 worker 节点的 IP 或主机名。  c. 向config/masters文件中添加master节点的ip:port"><meta name=twitter:description content="flink Notes flink 集群安装(standalon集群) (centos8环境)  flink要部署的集群,master节点要开放端口(8081,6123,37243), 并配置好 master节点可以无密码登陆worker节点(通过ssh密钥登陆).
+  安装java, 到flink 官网下载最新压缩包,并解压. 参考flink官方
+a. dnf install java-1.8.0-openjdk-devel
+b. 修改flink路径下的config/flink.yml, 修改配置: ``` jobmanager.rpc.address: ${master节点的ip/domain} jobmanager.rpc.port: 6123
+ jobmanager.heap.size: 1024m taskmanager.memory.process.size: 1568m taskmanager.numberOfTaskSlots: 3 parallelism.default: 3 ``` `jobmanager.rpc.address` 配置项指向 master 节点。也应该通过设置 `jobmanager.memory.process.size` 和 `taskmanager.memory.process.size` 配置项来定义 `Flink` 允许在每个节点上分配的最大内存值。这些值的单位是 MB。如果一些 worker 节点上有你想分配到 Flink 系统的多余内存，你可以在这些特定节点的 conf/flink-conf.yaml 文件中重写` taskmanager.memory.process.size` 或 `taskmanager.memory.flink.size` 的默认值。最后，你必须提供集群上会被用作为 worker 节点的所有节点列表，也就是运行 TaskManager 的节点。编辑文件 conf/workers 并输入每个 worker 节点的 IP 或主机名。  c. 向config/masters文件中添加master节点的ip:port"><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2021-09-10T00:00:00"><meta property="article:modified_time" content="2021-09-10T00:00:00"><meta property="article:tag" content="scala"><meta property="article:tag" content="flink"><meta name=twitter:card content="summary"><meta property="og:image" content="https://immatt2015.github.io/images/wl.png"><meta property="twitter:image" content="https://immatt2015.github.io/images/wl.png"><title>flink 笔记(scala + gradle)</title><link rel=icon href=https://immatt2015.github.io/favicon.png><link rel=canonical href=https://immatt2015.github.io/2021/09/flink-%E7%AC%94%E8%AE%B0scala-gradle/><link rel=stylesheet href=https://immatt2015.github.io/css/font-awesome.min.css integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/jquery.fancybox.min.css integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/jquery.fancybox-thumbs.min.css integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin=anonymous><link rel=stylesheet href=https://immatt2015.github.io/css/tranquilpeak.css><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-159916317-1','auto');ga('send','pageview');}</script></head><body><div id=blog><header id=header data-behavior=5><i id=btn-open-sidebar class="fa fa-lg fa-bars"></i><div class=header-title><a class=header-title-link href=https://immatt2015.github.io/>My Blog</a></div><a class=header-right-picture href=https://immatt2015.github.io/#about><img class=header-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"></a></header><nav id=sidebar data-behavior=5><div class=sidebar-container><div class=sidebar-profile><a href=https://immatt2015.github.io/#about><img class=sidebar-profile-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"></a><h4 class=sidebar-profile-name>Matt</h4><h5 class=sidebar-profile-bio>My Blog</h5></div><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/><i class="sidebar-button-icon fa fa-lg fa-home"></i><span class=sidebar-button-desc>Home</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/tags><i class="sidebar-button-icon fa fa-lg fa-tags"></i><span class=sidebar-button-desc>Tags</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/archives><i class="sidebar-button-icon fa fa-lg fa-archive"></i><span class=sidebar-button-desc>Archives</span></a></li><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/#about><i class="sidebar-button-icon fa fa-lg fa-question"></i><span class=sidebar-button-desc>About</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://github.com/immatt2015 target=_blank rel=noopener><i class="sidebar-button-icon fa fa-lg fa-github"></i><span class=sidebar-button-desc>GitHub</span></a></li></ul><ul class=sidebar-buttons><li class=sidebar-button><a class=sidebar-button-link href=https://immatt2015.github.io/index.xml><i class="sidebar-button-icon fa fa-lg fa-rss"></i><span class=sidebar-button-desc>RSS</span></a></li></ul></div></nav><div id=main data-behavior=5 class=hasCoverMetaIn><article class=post itemscope itemtype=http://schema.org/BlogPosting><div class="post-header main-content-wrap text-left"><h1 class=post-title itemprop=headline>flink 笔记(scala + gradle)</h1><div class="postShorten-meta post-meta"><time itemprop=datePublished datetime=2021-09-10T00:00:00Z>10 September 2021</time></div></div><div class="post-content markdown" itemprop=articleBody><div class=main-content-wrap><h1 id=flink-notes>flink Notes</h1><h3 id=flink-集群安装standalon集群-centos8环境><code>flink</code> 集群安装(<code>standalon</code>集群) (centos8环境)</h3><ol start=0><li><p><code>flink</code>要部署的集群,<code>master</code>节点要开放端口(8081,6123,37243), 并配置好 <code>master</code>节点可以无密码登陆<code>worker</code>节点(通过ssh密钥登陆).</p></li><li><p>安装<code>java</code>, 到<code>flink</code> 官网<a href=https://flink.apache.org/downloads.html>下载最新压缩包</a>,并解压. 参考<a href=https://ci.apache.org/projects/flink/flink-docs-master/zh/docs/deployment/resource-providers/standalone/overview/><code>flink</code>官方</a></p><p>a.
+<code>dnf install java-1.8.0-openjdk-devel</code></p><p>b. 修改<code>flink</code>路径下的<code>config/flink.yml</code>, 修改配置:
+```
+jobmanager.rpc.address: ${master节点的ip/domain}
+jobmanager.rpc.port: 6123</p><pre><code> jobmanager.heap.size: 1024m
+ taskmanager.memory.process.size: 1568m
+
+ taskmanager.numberOfTaskSlots: 3
+ parallelism.default: 3
+ ```
+ `jobmanager.rpc.address` 配置项指向 master 节点。也应该通过设置 `jobmanager.memory.process.size` 和 `taskmanager.memory.process.size` 配置项来定义 `Flink` 允许在每个节点上分配的最大内存值。这些值的单位是 MB。如果一些 worker 节点上有你想分配到 Flink 系统的多余内存，你可以在这些特定节点的 conf/flink-conf.yaml 文件中重写` taskmanager.memory.process.size` 或 `taskmanager.memory.flink.size` 的默认值。最后，你必须提供集群上会被用作为 worker 节点的所有节点列表，也就是运行 TaskManager 的节点。编辑文件 conf/workers 并输入每个 worker 节点的 IP 或主机名。
+</code></pre><p>c. 向<code>config/masters</code>文件中添加<code>master</code>节点的<code>ip:port</code></p><p>d. 向<code>config/workers</code>文件添加所有的<code>worker</code>节点</p><p>e. 把修改过配置的<code>flink</code>配置文件+<code>flink</code>代码全部同步到其他的节点</p><p>f. 在<code>master</code>节点执行命令,启动集群
+<code>./bin/start-cluster.sh</code></p></li></ol><h3 id=在intellij-idea中创建项目scala--gradle>在<code>Intellij IDEA</code>中创建项目(scala + gradle)</h3><h5 id=gradle-项目>gradle 项目</h5><pre><code>1. 新建 gradle 项目, 
+2. 在 app 文件夹上 右键 新建目录 加 scala
+3. 在`build.gradle` 中加 `scala-library` 依赖; 设置好 mainClass 
+4. gradle build
+</code></pre><h5 id=maven-项目>maven 项目</h5><pre><code>file &gt; Project Structure &gt; Global Libraries : scala 版本要跟flink 对应的scala版本一致;
+</code></pre><h3 id=创建-flink-数据源-source-kafka-使用函数的方式参考httpswwwhuaweicloudcomarticles12592488html>创建 <code>flink</code> 数据源 <code>source</code> (<code>kafka</code>), 使用函数的方式<a href=https://www.huaweicloud.com/articles/12592488.html>参考</a></h3><p>通过 <code>table api</code>,得到<code>datastream</code></p><pre><code>val env = StreamExecutionEnvironment.getExecutionEnvironment
+val t_env = StreamTableEnvironment.create(env)
+
+t_env.executeSql(
+&quot;&quot;&quot;
+| CREATE TABLE xx (
+|     name STRING
+| ) WITH (
+|     'connector' = 'kafka'
+|     .....
+| )
+|&quot;&quot;&quot;.stripMargin)
+
+val xxTable = t_env.from(&quot;xx&quot;)
+val xxStream = t_env.toDataStream(xxTable, classOf[XX) // 如果不指定 `XX` 类型,会得到`DataStream[ROW]`类型
+</code></pre><h3 id=输出flink处理结果-sink-elasticsearch>输出<code>flink</code>处理结果: <code>sink</code> (<code>elasticsearch</code>)</h3><pre><code>t_env.executeSql(
+&quot;&quot;&quot;
+| CREATE TABLE sink (
+|     name STRING
+| ) WITH (
+|     'connector' = 'print'
+| )
+|&quot;&quot;&quot;.stripMargin)
+
+val dst = t_env.fromDataStream[XX](stream) // stream 为经过处理后的流, 如果`stream`不是`DataStream[ROW]`类型,需要指定 `XX` 类型
+dst.executeInsert(&quot;sink&quot;)
+</code></pre><hr><h1 id=gradle-打包>gradle 打包</h1><p>使用的包可以在<a href=https://mvnrepository.com/>maven repository</a>搜索<code>jar</code>包</p><pre><code>plugins {
+    id 'java'
+    id 'scala'
+    id 'application' // 这也是要添加的
+    id 'com.github.johnrengelman.shadow' version '7.0.0' // shadowjar 用于合并 manifest 等资源文件, 防止出现 xxx_factory 不对的情况
+}
+
+group 'org.static'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.12.14' //添加后, IDEA 才能知道项目使用的scala sdk
+
+    // https://mvnrepository.com/artifact/org.apache.flink/flink-table-planner-blink
+    implementation 'org.apache.flink:flink-table-planner-blink_2.12:1.13.2'
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+
+application {
+    mainClass = 'sql.main' // 设置entry文件
+}
+
+
+sourceCompatibility = 1.8
+archivesBaseName = &quot;zz&quot;
+version = 1.2
+
+shadowJar {
+    zip64 = true // 要开启,防止文件数量过多报错
+    manifest {
+        attributes 'Main-Class': 'sql.main'
+    }
+    dependencies { // 在打包的时候,不需要打入包的依赖
+        exclude(dependency('org.apache.flink:flink-table-planner-blink_2.12:1.13.2'))
+    }
+    mergeServiceFiles() // 当项目使用多个`Java Service Provider`接口(interface)的库(SPI),需要修改META-INF文件
+}
+</code></pre><p>使用 <code>shadowjar</code> 打<code>fat jar</code>, 参考<a href=https://ktor.io/docs/fatjar.html>Gradle Shadow plugin</a> + <a href=https://www.leadroyal.cn/p/555/>Gradle 历险记(四): 正确的打包jar的方式</a></p><hr><h1 id=遇到的问题>遇到的问题</h1><ol><li><p>错误<code>scala Static methods in interface require</code>: 需要在<code>IDEA</code> Preference > scala Compiler > Additional Compiler options : -target:jvm-1.8 参考 <a href=https://blog.csdn.net/YongDaiMe/article/details/108586263>https://blog.csdn.net/YongDaiMe/article/details/108586263</a></p></li><li><p><code>scala</code>版本 一定要跟<code>flink</code> <code>scala</code>版本一致</p></li><li><p>提交集群时出现<code>Exception in thread "main" java.lang.NoClassDefFoundError: scala/Predef$</code>
+错误 可能是因为没有在 gradle 的 build.gradle 依赖里加入 scala-library-{scala-version} 依赖/ scala 编译的版本跟flink集群编译用的scala版本不一致</p></li><li><p>在<code>IDEA</code>刷新 <code>gradle</code> 配置, <code>scala</code>类型的文件出现重新设置 <code>scala</code>版本, 肯定是 <code>build.gradle</code> 缺少了 <code>scala-library</code> 依赖</p></li><li><p><code>Caused by: org.apache.flink.table.api.ValidationException: Could not find any factory for identifier 'kafka' that implements 'org.apache.flink.table.factories.DynamicTableFactory' in the classpath.</code>, 这个可能是使用了多个 <code>SPI</code>, 但是<code>META-INF</code>文件没有被修改导致的, 需要添加</p><pre><code>shadowjar {
+    mergeServiceFiles()
+}
+</code></pre><p><a href=https://mlog.club/article/910205>参考</a></p></li></ol><hr><h2 id=pyflink-使用-参考httpssegmentfaultcoma1190000039921098>Pyflink 使用 <a href=https://segmentfault.com/a/1190000039921098>参考</a></h2><h3 id=环境>环境</h3><pre><code># 安装 pyenv
+sudo dnf groupinstall -y &quot;Development Tools&quot;
+sudo dnf install -y zlib zlib-devel bzip2-devel openssl-devel sqlite-devel readline-devel
+
+curl https://pyenv.run | bash
+
+export PYENV_ROOT=&quot;$HOME/.pyenv&quot;
+export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;
+eval &quot;$(pyenv init --path)&quot;
+eval &quot;$(pyenv init -)&quot;
+
+exec &quot;$SHELL&quot;
+
+pyenv install xxx 
+
+yum install libffi-devel  # 这一步很重要,不然会报错
+pyenv uninstall 3.7.6
+pyenv install 3.7.6
+</code></pre><pre><code>python -m pip install apache-flink==1.13.2
+</code></pre><p>pyflink 本地执行 py 文件的时候, 如果用到了 <code>jar</code> 文件, 需要在代码中指定 <code>t_env.get_config().get_configuration().set_string("pipeline.jars", "file://~/flink-sql-connector-kafka_2.11-1.13.0.jar")</code></p><p>如果是用 flink 提交集群运行, jar依赖包指定方式</p><ol><li>要么放到 <code>flink/lib</code> 目录下,然后重启集群;</li><li><code>flink run -C file://xxxxx.jar -py xxxx.py</code> 就可以了,不需要重启flink集群</li><li><code>flink run -m yarn-cluster -j flink-sql-connector-kafka_2.11-1.11.2.jar -pyarch venv.zip -pyexec venv.zip/venv/bin/python3 -py main.py</code> 通过 -j 参数来指定一个 jar 包路径，多个 jar 包则使用多个 -j. <a href=https://www.jianshu.com/p/be8136ce2c72>参考</a></li></ol></div></div><div id=post-footer class="post-footer main-content-wrap"><div class=post-footer-tags><span class="text-color-light text-small">TAGGED IN</span><br><a class="tag tag--primary tag--small" href=https://immatt2015.github.io/tags/scala/>scala</a>
+<a class="tag tag--primary tag--small" href=https://immatt2015.github.io/tags/flink/>flink</a></div><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2021/07/nuxtjs-pm2-%E9%83%A8%E7%BD%B2/ data-tooltip="Nuxtjs PM2 部署"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--disabled"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div><div id=disqus_thread><noscript>Please enable JavaScript to view the <a href=//disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></div></article><footer id=footer class=main-content-wrap><span class=copyrights>&copy; 2021 Matt. All Rights Reserved</span></footer></div><div id=bottom-bar class=post-bottom-bar data-behavior=5><div class=post-actions-wrap><nav><ul class="post-actions post-action-nav"><li class=post-action><a class="post-action-btn btn btn--default tooltip--top" href=https://immatt2015.github.io/2021/07/nuxtjs-pm2-%E9%83%A8%E7%BD%B2/ data-tooltip="Nuxtjs PM2 部署"><i class="fa fa-angle-left"></i><span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span></a></li><li class=post-action><a class="post-action-btn btn btn--disabled"><span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+<i class="fa fa-angle-right"></i></a></li></ul></nav><ul class="post-actions post-action-share"><li class="post-action hide-lg hide-md hide-sm"><a class="post-action-btn btn btn--default btn-open-shareoptions" href=#btn-open-shareoptions><i class="fa fa-share-alt"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#disqus_thread><i class="fa fa-comment-o"></i></a></li><li class=post-action><a class="post-action-btn btn btn--default" href=#><i class="fa fa-list"></i></a></li></ul></div></div><div id=share-options-bar class=share-options-bar data-behavior=5><i id=btn-close-shareoptions class="fa fa-close"></i><ul class=share-options></ul></div><div id=share-options-mask class=share-options-mask></div></div><div id=about><div id=about-card><div id=about-btn-close><i class="fa fa-remove"></i></div><img id=about-card-picture src=https://immatt2015.github.io/images/wl.png alt="Author's picture"><h4 id=about-card-name>Matt</h4><div id=about-card-bio>My Blog</div><div id=about-card-job><i class="fa fa-briefcase"></i><br>Nil</div><div id=about-card-location><i class="fa fa-map-marker"></i><br>China</div></div></div><div id=cover style=background-image:url(https://immatt2015.github.io/images/bgImg.webp)></div><script src=https://immatt2015.github.io/js/jquery.min.js integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/highlight.min.js integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/jquery.fancybox.min.js integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin=anonymous></script><script src=https://immatt2015.github.io/js/tranquilpeak.js></script><script lang=javascript>window.onload=updateMinWidth;window.onresize=updateMinWidth;document.getElementById("sidebar").addEventListener("transitionend",updateMinWidth);function updateMinWidth(){var sidebar=document.getElementById("sidebar");var main=document.getElementById("main");main.style.minWidth="";var w1=getComputedStyle(main).getPropertyValue("min-width");var w2=getComputedStyle(sidebar).getPropertyValue("width");var w3=getComputedStyle(sidebar).getPropertyValue("left");main.style.minWidth=`calc(${w1} - ${w2} - ${w3})`;}</script><script>$(document).ready(function(){hljs.configure({classPrefix:'',useBR:false});$('pre.code-highlight > code, pre > code').each(function(i,block){if(!$(this).hasClass('codeblock')){$(this).addClass('codeblock');}
+hljs.highlightBlock(block);});});</script><script>var disqus_config=function(){this.page.url='https:\/\/immatt2015.github.io\/2021\/09\/flink-%E7%AC%94%E8%AE%B0scala-gradle\/';this.page.identifier='\/2021\/09\/flink-%E7%AC%94%E8%AE%B0scala-gradle\/'};(function(){if(window.location.hostname=="localhost"){return;}
+var d=document,s=d.createElement('script');var disqus_shortname='hugo-tranquilpeak-theme';s.src='//'+disqus_shortname+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script></body></html>
