@@ -123,7 +123,7 @@ pyenv uninstall 3.7.6
 pyenv install 3.7.6
 </code></pre><pre><code>python -m pip install apache-flink==1.13.2
 </code></pre><p>pyflink 本地执行 py 文件的时候, 如果用到了 <code>jar</code> 文件, 需要在代码中指定 <code>t_env.get_config().get_configuration().set_string("pipeline.jars", "file://~/flink-sql-connector-kafka_2.11-1.13.0.jar")</code></p><p>如果是用 flink 提交集群运行, jar依赖包指定方式</p><ol><li>要么放到 <code>flink/lib</code> 目录下,然后重启集群;</li><li><code>flink run -C file://xxxxx.jar -py xxxx.py</code> 就可以了,不需要重启flink集群</li><li><code>flink run -m yarn-cluster -j flink-sql-connector-kafka_2.11-1.11.2.jar -pyarch venv.zip -pyexec venv.zip/venv/bin/python3 -py main.py</code> 通过 -j 参数来指定一个 jar 包路径，多个 jar 包则使用多个 -j. <a href=https://www.jianshu.com/p/be8136ce2c72>参考</a></li></ol><hr><p>java pojo 类:</p><ol><li>类必须是 public 的</li><li>字段必须是 public的/private的(要有getter+setters)</li></ol><hr><p>flink 设置 job name
-<code>table_env.getConfig.getConfiguration.setString("pipeline.name", "job name")</code></p><hr><p>flink state evolution 可以通过 avrohugger 利用 avro schema 生成 SpecificRecord 进行演进</p><pre><code>avrohugger {
+<code>table_env.getConfig.getConfiguration.setString("pipeline.name", "job name")</code></p><hr><p>flink state evolution 可以通过 avrohugger 利用 avro schema 生成 SpecificRecord 进行演进, 但是有问题, 实现不了删除字段</p><pre><code>avrohugger {
     // sourceDirectories = files('src-avro')
     // destinationDirectory = file('src-scala')
     // namespaceMapping = [ 'com.example' : 'com.zlad' ]
